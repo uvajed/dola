@@ -65,14 +65,46 @@ Page automatically reloads every 60 minutes (`REFRESH_INTERVAL = 60 * 60 * 1000`
 
 For production, replace `location.reload()` with API calls to event sources (Facebook Graph API, Eventbrite API, etc.).
 
+## Event Ordering System
+
+All events in `MANUAL_EVENTS` array have an `order` property that controls display order:
+
+- **Lower order numbers appear first** (e.g., `order: 1` appears before `order: 10`)
+- **Live events**: Use order numbers 1-20 (sorted by date, soonest first)
+- **Permanent venues**: Use order numbers 21+ (newest venues first)
+- Events without an `order` property default to 999 (appear last)
+
+The `renderDynamicEvents()` function automatically sorts by the `order` property before rendering.
+
+### To Reorder Events:
+
+Simply change the `order` number in the event object. For example, to move Brezovica to the top of permanent venues:
+
+```javascript
+{
+    title: "Brezovica Ski Resort",
+    // ... other properties
+    order: 21  // Change this number to reorder
+}
+```
+
 ## Adding New Events
 
-1. Create new `<article class="event-card event-card-live">` for time-specific events
-2. Add `<div class="event-badge">🎉 LIVE EVENT</div>` badge
-3. Set appropriate `data-category`
-4. Include specific date/time in `.event-time`
-5. Place before "PERMANENT VENUES" comment section
-6. For permanent venues, use `.venue-badge` instead and place in venues section
+1. Add new event object to `MANUAL_EVENTS` array in `index.html`
+2. Include all required properties:
+   - `title`, `titleEn` (Albanian and English titles)
+   - `description`, `descriptionEn`
+   - `date`, `time`, `location`
+   - `image` (Unsplash or event image URL)
+   - `category` (`bars`, `museum`, `outdoor`, `restaurant`, or `concert`)
+   - `url` (event website or Google search)
+   - `source` (event source name)
+   - `isLive` (`true` for time-specific events, `false` for permanent venues)
+   - `order` (number determining display position)
+3. Assign appropriate `order` number:
+   - For live events: Use 1-20 range, ordered by date
+   - For new venues: Use 21-30 range for newest venues
+   - For older venues: Use 31+ range
 
 ## CSS Architecture
 

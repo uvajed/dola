@@ -767,7 +767,7 @@
 
         // Manually curated events (easy to update)
         const MANUAL_EVENTS = [
-            // UPCOMING EVENTS (Sorted by date - Soonest first!)
+            // UPCOMING EVENTS (Sorted by order number - Lower numbers appear first!)
             {
                 title: "Filma të shkurtë nga Gjilani: 'Sinkopa' & 'Dogme 666'",
                 titleEn: "Short Films from Gjilan: 'Sinkopa' & 'Dogme 666'",
@@ -780,7 +780,8 @@
                 category: "museum",
                 url: "https://www.facebook.com/kinoarmata/events",
                 source: "Kino ARMATA",
-                isLive: true
+                isLive: true,
+                order: 1
             },
             {
                 title: "Festivali MOISIU 2025",
@@ -794,63 +795,8 @@
                 category: "museum",
                 url: "https://www.google.com/search?q=Festival+MOISIU+Prishtina+2025",
                 source: "festivali.moisiu",
-                isLive: true
-            },
-            {
-                title: "Festa e Vallëzimit për Vitin e Ri - Jay Fase",
-                titleEn: "New Year's Eve Dance Party - Jay Fase",
-                description: "Prit vitin 2026 me Jay Fase në ZONE Club! Muzikë vallëzimi gjithë natën. Mos humbisni festimin më të madh të Vitit të Ri në Prishtinë.",
-                descriptionEn: "Ring in 2026 with Jay Fase at ZONE Club! Dance genre music all night long. Don't miss the biggest NYE celebration in Prishtina.",
-                date: "Dec 31",
-                time: "9:00 PM",
-                location: "ZONE Club, Prishtina",
-                image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400",
-                category: "concert",
-                url: "https://www.google.com/search?q=Jay+Fase+ZONE+Club+Prishtina+December+31+2025",
-                source: "Local Events",
-                isLive: true
-            },
-            {
-                title: "Dymos & Shizzo - Seancë Downtempo për Vitin e Ri",
-                titleEn: "Dymos & Shizzo - NYE Downtempo Session",
-                description: "Përjetoni një performancë unike downtempo nga Dymos & Shizzo në ZONE Club këtë Vit të Ri. Vibra relaksuese për ta mbyllur vitin.",
-                descriptionEn: "Experience a unique downtempo performance by Dymos & Shizzo at ZONE Club this New Year's Eve. Chill vibes to end the year.",
-                date: "Dec 31",
-                time: "10:00 PM",
-                location: "ZONE Club, Prishtina",
-                image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400",
-                category: "concert",
-                url: "https://www.google.com/search?q=Dymos+Shizzo+ZONE+Club+Prishtina+December+31+2025",
-                source: "Local Events",
-                isLive: true
-            },
-            {
-                title: "Panairi Ndërkombëtar i Arsimit Prishtinë 2025",
-                titleEn: "Prishtina International Education Fair 2025",
-                description: "Eksploro. Lidhu. Sukseso. Takoni përfaqësues nga universitete nga e gjithë bota. Perfekt për studentët që planifikojnë të ardhmen e tyre.",
-                descriptionEn: "Explore. Connect. Succeed. Meet representatives from universities worldwide. Perfect for students planning their future.",
-                date: "Coming Soon",
-                time: "TBA",
-                location: "Prishtina Convention Center",
-                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400",
-                category: "outdoor",
-                url: "https://www.eventbrite.com/d/kosovo--pristina/events/",
-                source: "Eventbrite",
-                isLive: true
-            },
-            {
-                title: "Software Freedom Kosova 2025 Conference",
-                titleEn: "Software Freedom Kosova 2025 Conference",
-                description: "Konferenca vjetore teknologjike që bashkon zhvillues, dizajnerë dhe entuziastë teknologjie. Mësoni për open source dhe inovacion.",
-                descriptionEn: "Annual tech conference bringing together developers, designers, and tech enthusiasts. Learn about open source and innovation.",
-                date: "Coming Soon",
-                time: "TBA",
-                location: "Prishtinë",
-                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400",
-                category: "outdoor",
-                url: "https://www.eventbrite.com/d/kosovo--pristina/events/",
-                source: "Eventbrite",
-                isLive: true
+                isLive: true,
+                order: 2
             },
             {
                 title: "Tregu i Krishtlindjeve Prishtinë 2025",
@@ -864,7 +810,8 @@
                 category: "outdoor",
                 url: "https://www.google.com/search?q=Pristina+Christmas+Market+2025",
                 source: "Ultimate Christmas Markets",
-                isLive: true
+                isLive: true,
+                order: 3
             },
             {
                 title: "Ndeshje UEFA Europa Conference League",
@@ -878,7 +825,68 @@
                 category: "outdoor",
                 url: "https://www.google.com/search?q=UEFA+Europa+Conference+League+Stadiumi+Fadil+Vokrri+December+11+2025",
                 source: "Sofascore",
-                isLive: true
+                isLive: true,
+                order: 4
+            },
+            {
+                title: "Festa e Vallëzimit për Vitin e Ri - Jay Fase",
+                titleEn: "New Year's Eve Dance Party - Jay Fase",
+                description: "Prit vitin 2026 me Jay Fase në ZONE Club! Muzikë vallëzimi gjithë natën. Mos humbisni festimin më të madh të Vitit të Ri në Prishtinë.",
+                descriptionEn: "Ring in 2026 with Jay Fase at ZONE Club! Dance genre music all night long. Don't miss the biggest NYE celebration in Prishtina.",
+                date: "Dec 31",
+                time: "9:00 PM",
+                location: "ZONE Club, Prishtina",
+                image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400",
+                category: "concert",
+                url: "https://www.google.com/search?q=Jay+Fase+ZONE+Club+Prishtina+December+31+2025",
+                source: "Local Events",
+                isLive: true,
+                order: 5
+            },
+            {
+                title: "Dymos & Shizzo - Seancë Downtempo për Vitin e Ri",
+                titleEn: "Dymos & Shizzo - NYE Downtempo Session",
+                description: "Përjetoni një performancë unike downtempo nga Dymos & Shizzo në ZONE Club këtë Vit të Ri. Vibra relaksuese për ta mbyllur vitin.",
+                descriptionEn: "Experience a unique downtempo performance by Dymos & Shizzo at ZONE Club this New Year's Eve. Chill vibes to end the year.",
+                date: "Dec 31",
+                time: "10:00 PM",
+                location: "ZONE Club, Prishtina",
+                image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400",
+                category: "concert",
+                url: "https://www.google.com/search?q=Dymos+Shizzo+ZONE+Club+Prishtina+December+31+2025",
+                source: "Local Events",
+                isLive: true,
+                order: 6
+            },
+            {
+                title: "Panairi Ndërkombëtar i Arsimit Prishtinë 2025",
+                titleEn: "Prishtina International Education Fair 2025",
+                description: "Eksploro. Lidhu. Sukseso. Takoni përfaqësues nga universitete nga e gjithë bota. Perfekt për studentët që planifikojnë të ardhmen e tyre.",
+                descriptionEn: "Explore. Connect. Succeed. Meet representatives from universities worldwide. Perfect for students planning their future.",
+                date: "Coming Soon",
+                time: "TBA",
+                location: "Prishtina Convention Center",
+                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400",
+                category: "outdoor",
+                url: "https://www.eventbrite.com/d/kosovo--pristina/events/",
+                source: "Eventbrite",
+                isLive: true,
+                order: 7
+            },
+            {
+                title: "Software Freedom Kosova 2025 Conference",
+                titleEn: "Software Freedom Kosova 2025 Conference",
+                description: "Konferenca vjetore teknologjike që bashkon zhvillues, dizajnerë dhe entuziastë teknologjie. Mësoni për open source dhe inovacion.",
+                descriptionEn: "Annual tech conference bringing together developers, designers, and tech enthusiasts. Learn about open source and innovation.",
+                date: "Coming Soon",
+                time: "TBA",
+                location: "Prishtinë",
+                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400",
+                category: "outdoor",
+                url: "https://www.eventbrite.com/d/kosovo--pristina/events/",
+                source: "Eventbrite",
+                isLive: true,
+                order: 8
             },
             {
                 title: "Forumi i Rinisë së Ballkanit Perëndimor 2025",
@@ -892,7 +900,8 @@
                 category: "outdoor",
                 url: "https://www.rycowb.org/open-call-for-participation-join-the-western-balkan-youth-forum-2025-in-pristina/",
                 source: "Regional Youth Cooperation Office",
-                isLive: true
+                isLive: true,
+                order: 9
             },
             {
                 title: "Venom Nightclub - Seanca DJ të Fundjavës",
@@ -906,7 +915,8 @@
                 category: "bars",
                 url: "https://www.google.com/search?q=Venom+Nightclub+Prishtina+events",
                 source: "Evendo",
-                isLive: true
+                isLive: true,
+                order: 10
             },
             {
                 title: "Duplex Club - Netët Pop & Rap",
@@ -920,7 +930,8 @@
                 category: "bars",
                 url: "https://www.google.com/search?q=Duplex+Club+Prishtina",
                 source: "TripAdvisor",
-                isLive: true
+                isLive: true,
+                order: 11
             },
             {
                 title: "Teatri ODA - Shfaqje Javore",
@@ -934,9 +945,10 @@
                 category: "museum",
                 url: "https://teatrioda.com/",
                 source: "teatrioda.com",
-                isLive: true
+                isLive: true,
+                order: 12
             },
-            // PERMANENT VENUES (Newest First!)
+            // PERMANENT VENUES (Sorted by order number - Lower numbers appear first!)
             {
                 title: "Brezovica Ski Resort",
                 titleEn: "Brezovica Ski Resort",
@@ -949,7 +961,8 @@
                 category: "outdoor",
                 url: "https://www.beinkosovo.com/brezovica-ski-center/",
                 source: "Brezovica Ski Center",
-                isLive: false
+                isLive: false,
+                order: 21
             },
             {
                 title: "Rugova Canyon Adventures",
@@ -963,7 +976,8 @@
                 category: "outdoor",
                 url: "https://www.google.com/search?q=Rugova+Canyon+Kosovo",
                 source: "Balkan Natural Adventure",
-                isLive: false
+                isLive: false,
+                order: 22
             },
             {
                 title: "Peaks of the Balkans Trail",
@@ -977,7 +991,8 @@
                 category: "outdoor",
                 url: "https://www.peaksofthebalkans.com/",
                 source: "Peaks of the Balkans",
-                isLive: false
+                isLive: false,
+                order: 23
             },
             {
                 title: "Galeria Kombëtare e Kosovës",
@@ -991,7 +1006,8 @@
                 category: "museum",
                 url: "https://museumforall.eu/museum/pristina-the-national-gallery-of-kosovo/",
                 source: "National Gallery",
-                isLive: false
+                isLive: false,
+                order: 24
             },
             {
                 title: "Muzeu Etnologjik i Kosovës",
@@ -1005,7 +1021,8 @@
                 category: "museum",
                 url: "https://www.kosovo-vacations.com/kosovo-museum.html",
                 source: "Kosovo Museum",
-                isLive: false
+                isLive: false,
+                order: 25
             },
             {
                 title: "Soma Book Station",
@@ -1019,7 +1036,8 @@
                 category: "bars",
                 url: "https://www.spottedbylocals.com/prishtina/soma-book-station/",
                 source: "Spotted by Locals",
-                isLive: false
+                isLive: false,
+                order: 26
             },
             {
                 title: "Pazar i Prishtinës (Tuesdays)",
@@ -1033,7 +1051,8 @@
                 category: "outdoor",
                 url: "https://www.tripadvisor.com/Attraction_Review-g295385-d2343617-Reviews-Bazaar-Pristina.html",
                 source: "Bazaar of Pristina",
-                isLive: false
+                isLive: false,
+                order: 27
             },
             {
                 title: "Pazar i Vjetër i Prizrenit",
@@ -1047,7 +1066,8 @@
                 category: "outdoor",
                 url: "https://evendo.com/locations/kosovo/prizren/best-shops",
                 source: "Prizren Tourism",
-                isLive: false
+                isLive: false,
+                order: 28
             },
             {
                 title: "PrizrenFest - Festivali i Teatrit",
@@ -1061,7 +1081,8 @@
                 category: "museum",
                 url: "https://www.festivalfinder.eu/festivals/prizren-fest",
                 source: "PrizrenFest",
-                isLive: false
+                isLive: false,
+                order: 29
             },
             {
                 title: "Filharmonia e Kosovës",
@@ -1075,7 +1096,8 @@
                 category: "museum",
                 url: "https://www.instagram.com/kosovophilharmonic/",
                 source: "Instagram",
-                isLive: false
+                isLive: false,
+                order: 30
             },
             {
                 title: "Lulu's Coffee and Wine",
@@ -1089,7 +1111,8 @@
                 category: "restaurant",
                 url: "https://www.instagram.com/luluscoffeeandwine/",
                 source: "Instagram",
-                isLive: false
+                isLive: false,
+                order: 31
             },
             {
                 title: "Vendum",
@@ -1103,7 +1126,8 @@
                 category: "bars",
                 url: "https://www.instagram.com/vendum.ks/",
                 source: "Instagram",
-                isLive: false
+                isLive: false,
+                order: 32
             },
             {
                 title: "ZONE Club",
@@ -1117,7 +1141,8 @@
                 category: "bars",
                 url: "https://www.facebook.com/zoneclubpr",
                 source: "Facebook",
-                isLive: false
+                isLive: false,
+                order: 33
             },
             {
                 title: "Tiffany Restaurant",
@@ -1131,7 +1156,8 @@
                 category: "restaurant",
                 url: "https://www.google.com/search?q=Tiffany+Restaurant+Prishtina",
                 source: "Local Guides",
-                isLive: false
+                isLive: false,
+                order: 34
             },
             {
                 title: "Renaissance Restaurant",
@@ -1145,7 +1171,8 @@
                 category: "restaurant",
                 url: "https://www.tripadvisor.com/Restaurant_Review-g295385-d2354337-Reviews-Renaissance-Pristina.html",
                 source: "TripAdvisor",
-                isLive: false
+                isLive: false,
+                order: 35
             },
             {
                 title: "Dit' e Nat'",
@@ -1159,133 +1186,8 @@
                 category: "restaurant",
                 url: "https://www.tripadvisor.com/Restaurant_Review-g295385-d2078079-Reviews-Dit_e_Nat-Pristina.html",
                 source: "TripAdvisor",
-                isLive: false
-            },
-            {
-                title: "Brezovica Ski Resort",
-                titleEn: "Brezovica Ski Resort",
-                description: "Qendra më e madhe e turizmit dimëror në Kosovë! 13km pista skijimi, 3 lifta, nivele 1718-2522m. Sezona nga nëntori deri në prill. Pamje mahnitëse malore!",
-                descriptionEn: "Kosovo's largest winter tourism center! 13km ski slopes, 3 lifts, elevation 1718-2522m. Season November-April. Stunning alpine views!",
-                date: "Nov-Apr",
-                time: "9:00 AM - 4:00 PM",
-                location: "Brezovica, Sharr Mountains",
-                image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400",
-                category: "outdoor",
-                url: "https://www.beinkosovo.com/brezovica-ski-center/",
-                source: "Brezovica Ski Center",
-                isLive: false
-            },
-            {
-                title: "Rugova Canyon Adventures",
-                titleEn: "Rugova Canyon Adventures",
-                description: "Kanioni i Rugovës - 25km natyrë mahnitëse! Via ferrata, zipline, ngjitje shkëmbore, hiking. Pamje spektakolare nga malet e Mallëziut.",
-                descriptionEn: "Rugova Canyon - 25km of stunning nature! Via ferrata, zipline, rock climbing, hiking. Spectacular views of the Accursed Mountains.",
-                date: "Apr-Dec",
-                time: "All Day",
-                location: "Rugova Canyon, Peja",
-                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400",
-                category: "outdoor",
-                url: "https://www.google.com/search?q=Rugova+Canyon+Kosovo",
-                source: "Balkan Natural Adventure",
-                isLive: false
-            },
-            {
-                title: "Galeria Kombëtare e Kosovës",
-                titleEn: "National Gallery of Kosovo",
-                description: "Galeria kombëtare e arteve vizuale, themeluar 1979. Ekspozita të përhershme dhe të përkohshme të artit bashkëkohor kosovar dhe ndërkombëtar.",
-                descriptionEn: "National visual arts gallery, established 1979. Permanent and temporary exhibitions of contemporary Kosovar and international art.",
-                date: "Open Daily",
-                time: "10:00 AM - 6:00 PM",
-                location: "Prishtinë",
-                image: "https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400",
-                category: "museum",
-                url: "https://museumforall.eu/museum/pristina-the-national-gallery-of-kosovo/",
-                source: "National Gallery",
-                isLive: false
-            },
-            {
-                title: "Muzeu Etnologjik i Kosovës",
-                titleEn: "Ethnographic Museum of Kosovo",
-                description: "Katër ndërtesa historike nga shek. 18-19. Ekspozita etnologjike që tregon jetën tradicionale shqiptare. Pjesë e Muzeut të Kosovës.",
-                descriptionEn: "Four historic 18th-19th century buildings. Ethnological exhibition showcasing traditional Albanian life. Part of Kosovo Museum.",
-                date: "Open Daily",
-                time: "9:00 AM - 5:00 PM",
-                location: "Rruga Henrik Barić, Prishtinë",
-                image: "https://images.unsplash.com/photo-1595433707802-6b6ad6b9e0ac?w=400",
-                category: "museum",
-                url: "https://www.kosovo-vacations.com/kosovo-museum.html",
-                source: "Kosovo Museum",
-                isLive: false
-            },
-            {
-                title: "Soma Book Station",
-                titleEn: "Soma Book Station",
-                description: "Bar dhe librari unike në Prishtinë. Koktele, kafe, dhe atmosferë relaksuese me libra. Vend i përsosur për të takuar miq dhe për të lexuar.",
-                descriptionEn: "Unique bar and bookstore in Prishtina. Cocktails, coffee, and relaxed atmosphere with books. Perfect place to meet friends and read.",
-                date: "Open Daily",
-                time: "8:00 AM - Midnight",
-                location: "Prishtinë",
-                image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400",
-                category: "bars",
-                url: "https://www.spottedbylocals.com/prishtina/soma-book-station/",
-                source: "Spotted by Locals",
-                isLive: false
-            },
-            {
-                title: "Pazar i Prishtinës (Tuesdays)",
-                titleEn: "Prishtina Bazaar (Tuesdays)",
-                description: "Treg tradicional çdo të martë! Fruta, perime, produkte bujqësore direkt nga fshatrat. Atmosferë lokale autentike. Pranë xhamisë dhe kullës së sahatit.",
-                descriptionEn: "Traditional market every Tuesday! Fruits, vegetables, farm products direct from villages. Authentic local atmosphere. Near the mosque and clock tower.",
-                date: "Every Tuesday",
-                time: "6:00 AM - 2:00 PM",
-                location: "Pazar, Prishtinë",
-                image: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=400",
-                category: "outdoor",
-                url: "https://www.tripadvisor.com/Attraction_Review-g295385-d2343617-Reviews-Bazaar-Pristina.html",
-                source: "Bazaar of Pristina",
-                isLive: false
-            },
-            {
-                title: "Pazar i Vjetër i Prizrenit",
-                titleEn: "Prizren Old Bazaar",
-                description: "Pazar historik me dyqane të punimeve me dorë. Bizhuteri filigrani argjendi, gdhendjet në dru, suvenire autentike. Rrugë të bukura të gurosura.",
-                descriptionEn: "Historic bazaar with handmade crafts shops. Silver filigree jewelry, wood engravings, authentic souvenirs. Beautiful cobblestone streets.",
-                date: "Open Daily",
-                time: "9:00 AM - 8:00 PM",
-                location: "Qendra e Vjetër, Prizren",
-                image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400",
-                category: "outdoor",
-                url: "https://evendo.com/locations/kosovo/prizren/best-shops",
-                source: "Prizren Tourism",
-                isLive: false
-            },
-            {
-                title: "PrizrenFest - Festivali i Teatrit",
-                titleEn: "PrizrenFest - Open-Air Theatre Festival",
-                description: "Festival ndërkombëtar i teatrit në ambient të hapur! Performanca nga Kosova, Shqipëri, Maqedoni, Iran, Francë. Falas për të gjithë! Në hapësira historike të Prizrenit.",
-                descriptionEn: "International open-air theatre festival! Performances from Kosovo, Albania, Macedonia, Iran, France. Free for all! In Prizren's historic spaces.",
-                date: "Summer",
-                time: "Evening",
-                location: "Kino Lumbardhi & Historic Sites, Prizren",
-                image: "https://images.unsplash.com/photo-1503095396549-807759245b35?w=400",
-                category: "museum",
-                url: "https://www.festivalfinder.eu/festivals/prizren-fest",
-                source: "PrizrenFest",
-                isLive: false
-            },
-            {
-                title: "Peaks of the Balkans Trail",
-                titleEn: "Peaks of the Balkans Trail",
-                description: "192km rrugë hiking ndër tre vende: Kosovë, Mali i Zi, Shqipëri! Përmes Maleve të Mallëziut. Pamje mahnitëse, fshat  ra tradicionale. Aventurë epike!",
-                descriptionEn: "192km hiking route through three countries: Kosovo, Montenegro, Albania! Through the Accursed Mountains. Stunning views, traditional villages. Epic adventure!",
-                date: "Apr-Oct",
-                time: "Multi-day trek",
-                location: "Rugova, Kosovo & Cross-border",
-                image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=400",
-                category: "outdoor",
-                url: "https://www.peaksofthebalkans.com/",
-                source: "Peaks of the Balkans",
-                isLive: false
+                isLive: false,
+                order: 36
             }
             // Add more real events here as you find them!
         ];
@@ -1327,7 +1229,14 @@
             // Clear existing events so we can render in correct order
             newsFeed.innerHTML = '';
 
-            const dynamicHTML = events.map(event => {
+            // Sort events by order property (lower numbers first)
+            const sortedEvents = events.sort((a, b) => {
+                const orderA = a.order !== undefined ? a.order : 999;
+                const orderB = b.order !== undefined ? b.order : 999;
+                return orderA - orderB;
+            });
+
+            const dynamicHTML = sortedEvents.map(event => {
                 // Use language-specific title/description if available
                 const title = currentLang === 'sq' ? event.title : (event.titleEn || event.title);
                 const description = currentLang === 'sq' ? event.description : (event.descriptionEn || event.description);
