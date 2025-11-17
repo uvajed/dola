@@ -668,6 +668,98 @@
                 </article>
             </section>
         </div>
+
+        <!-- Add Event Floating Button -->
+        <button class="add-event-btn" id="addEventBtn" onclick="openAddEventModal()" title="Add your own event">
+            ➕ Add Event
+        </button>
+
+        <!-- Add Event Modal -->
+        <div class="modal" id="addEventModal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeAddEventModal()">&times;</span>
+                <h2>Add Your Event</h2>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 20px;">Share an event happening in Kosovo!</p>
+
+                <form id="addEventForm">
+                    <div class="form-group">
+                        <label>Event Title (Albanian) *</label>
+                        <input type="text" id="eventTitle" required placeholder="e.g., Koncert në Prishtinë">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Event Title (English) *</label>
+                        <input type="text" id="eventTitleEn" required placeholder="e.g., Concert in Prishtina">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="eventCategory" required onchange="suggestImages()">
+                            <option value="">Select category...</option>
+                            <option value="bars">Bars & Nightlife</option>
+                            <option value="museum">Museums & Culture</option>
+                            <option value="outdoor">Outdoor Activities</option>
+                            <option value="restaurant">Restaurants</option>
+                            <option value="concert">Concerts & Shows</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description (Albanian) *</label>
+                        <textarea id="eventDescription" required rows="3" placeholder="Përshkruani eventin..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description (English) *</label>
+                        <textarea id="eventDescriptionEn" required rows="3" placeholder="Describe the event..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date *</label>
+                            <input type="text" id="eventDate" required placeholder="e.g., Nov 25 or Dec 1-5">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Time</label>
+                            <input type="text" id="eventTime" placeholder="e.g., 7:00 PM">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location *</label>
+                        <input type="text" id="eventLocation" required placeholder="e.g., ZONE Club, Prishtina">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Website/Link</label>
+                        <input type="url" id="eventUrl" placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Event Type *</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="eventType" value="live" checked>
+                                🎉 Live Event (specific date)
+                            </label>
+                            <label>
+                                <input type="radio" name="eventType" value="venue">
+                                📍 Venue (always open)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="imageSuggestionsContainer" style="display: none;">
+                        <label>Choose Image *</label>
+                        <div id="imageSuggestions" class="image-suggestions"></div>
+                        <input type="hidden" id="selectedImage" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Event</button>
+                </form>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -1303,6 +1395,155 @@
             });
         }
 
+        // ========================================
+        // ADD EVENT FUNCTIONALITY
+        // ========================================
+
+        const UNSPLASH_ACCESS_KEY = 'YOUR_UNSPLASH_ACCESS_KEY'; // User can add their own key
+
+        // Open add event modal
+        function openAddEventModal() {
+            document.getElementById('addEventModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        // Close add event modal
+        function closeAddEventModal() {
+            document.getElementById('addEventModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('addEventForm').reset();
+            document.getElementById('imageSuggestionsContainer').style.display = 'none';
+        }
+
+        // Image suggestions based on category
+        const categoryImageKeywords = {
+            'bars': ['nightlife', 'bar', 'cocktail', 'party', 'club'],
+            'museum': ['museum', 'art', 'gallery', 'culture', 'exhibition'],
+            'outdoor': ['outdoor', 'nature', 'hiking', 'mountain', 'adventure'],
+            'restaurant': ['restaurant', 'food', 'dining', 'cafe', 'cuisine'],
+            'concert': ['concert', 'music', 'festival', 'stage', 'performance']
+        };
+
+        // Fallback images in case Unsplash is not available
+        const fallbackImages = {
+            'bars': [
+                'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400',
+                'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400',
+                'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400'
+            ],
+            'museum': [
+                'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400',
+                'https://images.unsplash.com/photo-1503095396549-807759245b35?w=400',
+                'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=400'
+            ],
+            'outdoor': [
+                'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
+                'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400',
+                'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400'
+            ],
+            'restaurant': [
+                'https://images.unsplash.com/photo-1544025162-d76694265947?w=400',
+                'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400',
+                'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400'
+            ],
+            'concert': [
+                'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400',
+                'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400',
+                'https://images.unsplash.com/photo-1501612780327-45045538702b?w=400'
+            ]
+        };
+
+        // Suggest images based on selected category
+        async function suggestImages() {
+            const category = document.getElementById('eventCategory').value;
+            if (!category) return;
+
+            const container = document.getElementById('imageSuggestions');
+            const suggestionContainer = document.getElementById('imageSuggestionsContainer');
+
+            // Show loading
+            container.innerHTML = '<p style="text-align: center; color: #666;">Loading images...</p>';
+            suggestionContainer.style.display = 'block';
+
+            // Use fallback images (Unsplash requires API key)
+            const images = fallbackImages[category] || fallbackImages['outdoor'];
+
+            container.innerHTML = images.map((url, index) => `
+                <div class="image-option ${index === 0 ? 'selected' : ''}" onclick="selectImage('${url}', this)">
+                    <img src="${url}" alt="Option ${index + 1}">
+                    <div class="image-check">✓</div>
+                </div>
+            `).join('');
+
+            // Auto-select first image
+            document.getElementById('selectedImage').value = images[0];
+        }
+
+        // Select image
+        function selectImage(url, element) {
+            // Remove previous selection
+            document.querySelectorAll('.image-option').forEach(opt => opt.classList.remove('selected'));
+            // Select this one
+            element.classList.add('selected');
+            document.getElementById('selectedImage').value = url;
+        }
+
+        // Get user-submitted events from localStorage
+        function getUserEvents() {
+            const events = localStorage.getItem('dolaUserEvents');
+            return events ? JSON.parse(events) : [];
+        }
+
+        // Save user-submitted events to localStorage
+        function saveUserEvents(events) {
+            localStorage.setItem('dolaUserEvents', JSON.stringify(events));
+        }
+
+        // Handle form submission
+        document.getElementById('addEventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const eventType = document.querySelector('input[name="eventType"]:checked').value;
+
+            const newEvent = {
+                title: document.getElementById('eventTitle').value,
+                titleEn: document.getElementById('eventTitleEn').value,
+                description: document.getElementById('eventDescription').value,
+                descriptionEn: document.getElementById('eventDescriptionEn').value,
+                date: document.getElementById('eventDate').value,
+                time: document.getElementById('eventTime').value || '',
+                location: document.getElementById('eventLocation').value,
+                image: document.getElementById('selectedImage').value,
+                category: document.getElementById('eventCategory').value,
+                url: document.getElementById('eventUrl').value || `https://www.google.com/search?q=${encodeURIComponent(document.getElementById('eventTitleEn').value)}`,
+                source: 'User Submitted',
+                isLive: eventType === 'live',
+                userSubmitted: true,
+                submittedAt: Date.now()
+            };
+
+            // Get existing user events
+            const userEvents = getUserEvents();
+            userEvents.push(newEvent);
+            saveUserEvents(userEvents);
+
+            // Add to MANUAL_EVENTS for immediate display
+            MANUAL_EVENTS.push(newEvent);
+
+            // Re-render events
+            loadAllEvents();
+
+            // Close modal and show success message
+            closeAddEventModal();
+            alert('Event submitted successfully! It will appear in your feed.');
+        });
+
+        // Load user events on page load
+        function loadUserEventsIntoFeed() {
+            const userEvents = getUserEvents();
+            MANUAL_EVENTS.push(...userEvents);
+        }
+
         // Helper function to parse dates for sorting
         function parseDateForSorting(dateStr) {
             // Handle special cases
@@ -1359,12 +1600,20 @@
                 const isFavorited = favorites.includes(eventId);
                 const heartIcon = isFavorited ? '❤️' : '🤍';
 
+                // Special badge for user-submitted events
+                let badgeClass = event.isLive ? '' : 'venue-badge';
+                let badgeText = event.isLive ? '🎉 LIVE EVENT' : '📍 VENUE';
+                if (event.userSubmitted) {
+                    badgeClass = 'user-badge';
+                    badgeText = event.isLive ? '👤 USER EVENT' : '👤 USER VENUE';
+                }
+
                 return `
-                <article class="event-card ${event.isLive ? 'event-card-live' : ''}" data-category="${event.category}" data-event-id="${eventId}" onclick="window.open('${event.url}', '_blank')">
+                <article class="event-card ${event.isLive ? 'event-card-live' : ''} ${event.userSubmitted ? 'user-submitted-card' : ''}" data-category="${event.category}" data-event-id="${eventId}" onclick="window.open('${event.url}', '_blank')">
                     <button class="favorite-btn ${isFavorited ? 'favorited' : ''}" onclick="event.stopPropagation(); toggleFavorite('${eventId}')" title="Save to favorites">
                         ${heartIcon}
                     </button>
-                    <div class="event-badge ${event.isLive ? '' : 'venue-badge'}">${event.isLive ? '🎉 LIVE EVENT' : '📍 VENUE'}</div>
+                    <div class="event-badge ${badgeClass}">${badgeText}</div>
                     <div class="event-image" style="background-image: url('${event.image}');"></div>
                     <div class="event-content">
                         <div class="event-header">
@@ -1513,6 +1762,9 @@
 
         // Initialize language on page load
         document.addEventListener('DOMContentLoaded', () => {
+            // Load user-submitted events from localStorage first
+            loadUserEventsIntoFeed();
+
             // Load events from all sources
             loadAllEvents();
 
