@@ -111,6 +111,68 @@ def get_random_image(category):
     return random.choice(IMAGE_POOLS['outdoor'])
 
 
+def extract_date_from_text(text):
+    """
+    Extract event date from text using regex patterns
+    Returns (date_string, has_specific_date) tuple
+    """
+    import re
+    from datetime import datetime
+
+    text_lower = text.lower()
+    current_year = datetime.now().year
+    current_month_num = datetime.now().month
+
+    # Month name mapping
+    months = {
+        'january': 1, 'february': 2, 'march': 3, 'april': 4, 'may': 5, 'june': 6,
+        'july': 7, 'august': 8, 'september': 9, 'october': 10, 'november': 11, 'december': 12,
+        'jan': 1, 'feb': 2, 'mar': 3, 'apr': 4, 'jun': 6, 'jul': 7, 'aug': 8, 'sep': 9, 'oct': 10, 'nov': 11, 'dec': 12
+    }
+
+    # Pattern 1: "November 22, 2025" or "Nov 22, 2025"
+    match = re.search(r'(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s+(\d{1,2}),?\s+(\d{4})', text_lower)
+    if match:
+        month_name, day, year = match.groups()
+        month_num = months.get(month_name)
+        if month_num and int(year) >= current_year:
+            # Check if date is in the past
+            event_date = datetime(int(year), month_num, int(day))
+            if event_date.date() >= datetime.now().date():
+                return (f"{month_name.capitalize()} {day}", True)
+
+    # Pattern 2: "22 November 2025" or "22 Nov 2025"
+    match = re.search(r'(\d{1,2})\s+(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s+(\d{4})', text_lower)
+    if match:
+        day, month_name, year = match.groups()
+        month_num = months.get(month_name)
+        if month_num and int(year) >= current_year:
+            event_date = datetime(int(year), month_num, int(day))
+            if event_date.date() >= datetime.now().date():
+                return (f"{month_name.capitalize()} {day}", True)
+
+    # Pattern 3: "November 22-24" (date range)
+    match = re.search(r'(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\s+(\d{1,2})\s*-\s*(\d{1,2})', text_lower)
+    if match:
+        month_name, start_day, end_day = match.groups()
+        month_num = months.get(month_name)
+        if month_num and month_num >= current_month_num:
+            return (f"{month_name.capitalize()} {start_day}-{end_day}", True)
+
+    # Pattern 4: "2025-11-22" (ISO format)
+    match = re.search(r'(\d{4})-(\d{2})-(\d{2})', text)
+    if match:
+        year, month, day = match.groups()
+        if int(year) >= current_year:
+            event_date = datetime(int(year), int(month), int(day))
+            if event_date.date() >= datetime.now().date():
+                month_name = list(months.keys())[int(month) - 1]
+                return (f"{month_name.capitalize()} {int(day)}", True)
+
+    # No specific date found
+    return ('Coming Soon', False)
+
+
 def scrape_facebook_events():
     """
     Scrape events from Facebook pages using Graph API
@@ -379,8 +441,11 @@ def scrape_google_events():
                         snippet = item.get('snippet', 'Check Google for details')
                         link = item.get('link', 'https://google.com')
 
-                        # Avoid duplicates
-                        if not any(e['title'] == title for e in events):
+                        # Extract date from title and snippet
+                        date_str, has_specific_date = extract_date_from_text(title + ' ' + snippet)
+
+                        # ONLY add events with specific dates (filter out "Coming Soon" generic events)
+                        if has_specific_date and not any(e['title'] == title for e in events):
                             # Intelligently detect category and select diverse image
                             category = detect_category(title, snippet)
                             image = get_random_image(category)
@@ -390,7 +455,7 @@ def scrape_google_events():
                                 'titleEn': title[:100],
                                 'description': snippet[:200],
                                 'descriptionEn': snippet[:200],
-                                'date': 'Coming Soon',
+                                'date': date_str,
                                 'time': 'Check Website',
                                 'location': 'Kosovo',
                                 'image': image,
@@ -400,7 +465,9 @@ def scrape_google_events():
                                 'isLive': True
                             }
                             events.append(event)
-                            print(f"  ✅ Found: {title[:50]}... [{category}]")
+                            print(f"  ✅ Found: {title[:50]}... [{category}] on {date_str}")
+                        elif not has_specific_date:
+                            print(f"  ⏭️  Skipped (no date): {title[:50]}...")
             else:
                 print(f"  ❌ Error: {response.status_code}")
 
