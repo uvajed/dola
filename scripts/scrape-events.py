@@ -8,6 +8,7 @@ Supports: Facebook Graph API, Eventbrite, RSS feeds
 import re
 import json
 import os
+import random
 from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
@@ -16,6 +17,56 @@ from urllib.parse import quote
 # User-Agent to avoid being blocked
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+}
+
+# Diverse image pools for each category (multiple images to avoid repetition)
+IMAGE_POOLS = {
+    'concert': [
+        'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400',  # Concert crowd
+        'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=400',  # Live music
+        'https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?w=400',  # Music festival
+        'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400',  # Stage performance
+        'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=400',  # DJ/electronic
+    ],
+    'bars': [
+        'https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=400',  # Cocktail bar
+        'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=400',  # Night bar
+        'https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=400',  # Bar interior
+        'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400',  # Drinks
+        'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400',  # Nightlife
+    ],
+    'museum': [
+        'https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=400',  # Art gallery
+        'https://images.unsplash.com/photo-1564399579883-451a5d44ec08?w=400',  # Museum interior
+        'https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=400',  # Exhibition
+        'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400',  # Theater/culture
+        'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400',  # Cinema
+    ],
+    'restaurant': [
+        'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400',  # Restaurant interior
+        'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400',  # Fine dining
+        'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400',  # Food spread
+        'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400',  # Cafe atmosphere
+        'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=400',  # Modern restaurant
+    ],
+    'outdoor': [
+        'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400',  # Outdoor event
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',  # Mountains
+        'https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=400',  # Hiking
+        'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400',  # Mountain landscape
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',  # Nature activity
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400',  # Ski resort
+        'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=400',  # Adventure sports
+    ]
+}
+
+# Keywords to detect event category from title/description
+CATEGORY_KEYWORDS = {
+    'concert': ['concert', 'music', 'festival', 'band', 'jazz', 'rock', 'dj', 'performance', 'show', 'stage', 'koncert', 'muzik', 'festival'],
+    'bars': ['bar', 'club', 'nightlife', 'party', 'drinks', 'cocktail', 'lounge', 'pub', 'nightclub', 'club', 'ballë'],
+    'museum': ['museum', 'gallery', 'art', 'exhibition', 'theater', 'theatre', 'cinema', 'film', 'movie', 'culture', 'cultural', 'muzeu', 'galeri', 'teatr', 'kino'],
+    'restaurant': ['restaurant', 'food', 'dining', 'cafe', 'coffee', 'brunch', 'dinner', 'lunch', 'restorant', 'ushqim'],
+    'outdoor': ['outdoor', 'hiking', 'mountain', 'ski', 'nature', 'adventure', 'trail', 'park', 'sports', 'malet', 'natyra']
 }
 
 # Facebook Configuration (from GitHub Secrets)
@@ -29,6 +80,36 @@ FACEBOOK_PAGES = [
     'vendum.ks',         # Vendum
     # Add more Kosovo event pages here
 ]
+
+
+def detect_category(title, description):
+    """
+    Intelligently detect event category from title and description
+    Returns the best matching category, defaulting to 'outdoor'
+    """
+    text = (title + ' ' + description).lower()
+
+    # Score each category based on keyword matches
+    scores = {}
+    for category, keywords in CATEGORY_KEYWORDS.items():
+        score = sum(1 for keyword in keywords if keyword in text)
+        scores[category] = score
+
+    # Return category with highest score, or 'outdoor' if no matches
+    best_category = max(scores.items(), key=lambda x: x[1])
+    return best_category[0] if best_category[1] > 0 else 'outdoor'
+
+
+def get_random_image(category):
+    """
+    Get a random image from the category's image pool
+    Returns a diverse image to avoid repetition
+    """
+    if category in IMAGE_POOLS:
+        return random.choice(IMAGE_POOLS[category])
+    # Fallback to outdoor images if category not found
+    return random.choice(IMAGE_POOLS['outdoor'])
+
 
 def scrape_facebook_events():
     """
@@ -300,6 +381,10 @@ def scrape_google_events():
 
                         # Avoid duplicates
                         if not any(e['title'] == title for e in events):
+                            # Intelligently detect category and select diverse image
+                            category = detect_category(title, snippet)
+                            image = get_random_image(category)
+
                             event = {
                                 'title': title[:100],
                                 'titleEn': title[:100],
@@ -308,14 +393,14 @@ def scrape_google_events():
                                 'date': 'Coming Soon',
                                 'time': 'Check Website',
                                 'location': 'Kosovo',
-                                'image': 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400',
-                                'category': 'outdoor',
+                                'image': image,
+                                'category': category,
                                 'url': link,
                                 'source': 'Google Search',
                                 'isLive': True
                             }
                             events.append(event)
-                            print(f"  ✅ Found: {title[:50]}...")
+                            print(f"  ✅ Found: {title[:50]}... [{category}]")
             else:
                 print(f"  ❌ Error: {response.status_code}")
 
