@@ -2,11 +2,12 @@
 """
 Event Scraper for Dola
 Scrapes events from various public sources and updates index.html
-NO GOOGLE SCRAPING - Uses direct source websites instead
+Supports: Facebook Graph API, Eventbrite, RSS feeds
 """
 
 import re
 import json
+import os
 from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
@@ -16,6 +17,106 @@ from urllib.parse import quote
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
+
+# Facebook Configuration (from GitHub Secrets)
+FB_APP_ID = os.environ.get('FB_APP_ID', '')
+FB_PAGE_TOKEN = os.environ.get('FB_PAGE_TOKEN', '')
+
+# Kosovo Facebook Pages to scrape events from
+FACEBOOK_PAGES = [
+    'kinoarmata',        # Kino ARMATA
+    'zoneclubpr',        # ZONE Club
+    'vendum.ks',         # Vendum
+    # Add more Kosovo event pages here
+]
+
+def scrape_facebook_events():
+    """
+    Scrape events from Facebook pages using Graph API
+    Requires FB_APP_ID and FB_PAGE_TOKEN environment variables
+    """
+    events = []
+
+    if not FB_PAGE_TOKEN or not FB_APP_ID:
+        print("⚠️  Facebook API not configured (FB_APP_ID or FB_PAGE_TOKEN missing)")
+        print("   Add tokens to GitHub Secrets to enable Facebook scraping")
+        print("   See FACEBOOK_AUTO_SCRAPING.md for setup instructions")
+        return events
+
+    print("🔍 Scraping Facebook events...")
+
+    for page_id in FACEBOOK_PAGES:
+        try:
+            # Facebook Graph API endpoint
+            url = f"https://graph.facebook.com/v18.0/{page_id}/events"
+            params = {
+                'access_token': FB_PAGE_TOKEN,
+                'fields': 'name,description,start_time,end_time,place,cover',
+                'time_filter': 'upcoming',
+                'limit': 10
+            }
+
+            response = requests.get(url, params=params, timeout=10)
+
+            if response.status_code == 200:
+                data = response.json()
+
+                if 'data' in data and len(data['data']) > 0:
+                    for fb_event in data['data']:
+                        try:
+                            # Parse event date
+                            start_time = datetime.fromisoformat(fb_event['start_time'].replace('Z', '+00:00'))
+                            event_date = start_time.strftime('%b %d')
+                            event_time = start_time.strftime('%I:%M %p')
+
+                            # Get location
+                            location = 'Kosovo'
+                            if 'place' in fb_event and 'name' in fb_event['place']:
+                                location = fb_event['place']['name']
+
+                            # Get cover image
+                            image = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400'
+                            if 'cover' in fb_event and 'source' in fb_event['cover']:
+                                image = fb_event['cover']['source']
+
+                            # Get description (truncate if too long)
+                            description = fb_event.get('description', 'Event in Kosovo')[:200]
+                            if len(fb_event.get('description', '')) > 200:
+                                description += '...'
+
+                            event = {
+                                'title': fb_event['name'],
+                                'titleEn': fb_event['name'],
+                                'description': description,
+                                'descriptionEn': description,
+                                'date': event_date,
+                                'time': event_time,
+                                'location': location,
+                                'image': image,
+                                'category': 'concert',  # Default category
+                                'url': f"https://facebook.com/events/{fb_event['id']}",
+                                'source': f'Facebook ({page_id})',
+                                'isLive': True
+                            }
+                            events.append(event)
+                            print(f"  ✅ Found: {fb_event['name'][:50]}... ({event_date})")
+
+                        except Exception as e:
+                            print(f"  ⚠️ Error parsing event: {e}")
+                            continue
+                else:
+                    print(f"  ℹ️  No upcoming events for {page_id}")
+
+            elif response.status_code == 400:
+                print(f"  ❌ Invalid token or page ID: {page_id}")
+            else:
+                print(f"  ❌ Error fetching from {page_id}: {response.status_code}")
+
+        except Exception as e:
+            print(f"  ❌ Error with page {page_id}: {e}")
+
+    return events
+
 
 def scrape_eventbrite():
     """
@@ -125,7 +226,11 @@ def scrape_events():
     print("🎉 Starting Event Scraper")
     print("=" * 50)
 
-    # Scrape from various sources
+    # Scrape from Facebook (if configured)
+    facebook_events = scrape_facebook_events()
+    all_events.extend(facebook_events)
+
+    # Scrape from Eventbrite
     eventbrite_events = scrape_eventbrite()
     all_events.extend(eventbrite_events)
 
@@ -135,6 +240,8 @@ def scrape_events():
 
     print("=" * 50)
     print(f"✅ Found {len(all_events)} total new events")
+    print(f"   - Facebook: {len(facebook_events)} events")
+    print(f"   - Eventbrite: {len(eventbrite_events)} events")
 
     return all_events
 
