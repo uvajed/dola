@@ -65,44 +65,6 @@
             <section class="news-feed">
                 <!-- TIME-SPECIFIC EVENTS -->
 
-                <!-- Event Card - Prishtina Jazz Festival -->
-                <article class="event-card event-card-live" data-category="concert" onclick="window.open('https://www.google.com/search?q=Prishtina+Jazz+Festival+2025', '_blank')">
-                    <div class="event-badge">🎉 LIVE EVENT</div>
-                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=400');"></div>
-                    <div class="event-content">
-                        <div class="event-header">
-                            <span class="event-category concert">Concerts & Shows</span>
-                            <span class="event-time">Nov 14-19</span>
-                        </div>
-                        <h2 class="event-title" data-lang-en="Prishtina Jazz Festival 2025" data-lang-sq="Festivali i Xhazit të Prishtinës 2025">Festivali i Xhazit të Prishtinës 2025</h2>
-                        <p class="event-description" data-lang-en="Annual international jazz festival featuring world-class musicians. Running since 2005, this prestigious event showcases the best of jazz music at ODA Theatre." data-lang-sq="Festivali ndërkombëtar vjetor i xhazit me muzikantë me famë botërore. Duke vazhduar që nga viti 2005, ky event prestigjioz prezanton më të mirën e muzikës xhaz në Teatrin ODA.">Festivali ndërkombëtar vjetor i xhazit me muzikantë me famë botërore. Duke vazhduar që nga viti 2005, ky event prestigjioz prezanton më të mirën e muzikës xhaz në Teatrin ODA.</p>
-                        <div class="event-footer">
-                            <span class="event-location">📍 ODA Theatre, Prishtinë</span>
-                            <span class="event-source">Source: prishtinajazzfest</span>
-                        </div>
-                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=ODA+Theatre+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
-                    </div>
-                </article>
-
-                <!-- Event Card - Albanian Socialist Film Screening -->
-                <article class="event-card event-card-live" data-category="museum" onclick="window.open('https://www.google.com/search?q=Në+Parajeën+Socialiste+Kino+ARMATA+Prishtina', '_blank')">
-                    <div class="event-badge">🎉 LIVE EVENT</div>
-                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400');"></div>
-                    <div class="event-content">
-                        <div class="event-header">
-                            <span class="event-category museum">Museums & Culture</span>
-                            <span class="event-time">Nov 22, 7:00 PM</span>
-                        </div>
-                        <h2 class="event-title" data-lang-en="Socialist Paradise Film - Ermela Tëli" data-lang-sq="Në Parajeën Socialiste (Nuk bie shi) - Ermela Tëli">Në Parajeën Socialiste (Nuk bie shi) - Ermela Tëli</h2>
-                        <p class="event-description" data-lang-en="Film screening and discussion about Albanian socialist era. 3-hour event featuring Ermela Tëli's work. Hosted by Kino ARMATA and K2.0's Concept Library." data-lang-sq="Shfaqje filmi dhe diskutim rreth epokës socialiste shqiptare. Event 3-orësh me veprën e Ermela Tëli. Organizuar nga Kino ARMATA dhe Biblioteka Konceptuale e K2.0.">Shfaqje filmi dhe diskutim rreth epokës socialiste shqiptare. Event 3-orësh me veprën e Ermela Tëli. Organizuar nga Kino ARMATA dhe Biblioteka Konceptuale e K2.0.</p>
-                        <div class="event-footer">
-                            <span class="event-location">📍 Kino ARMATA, Prishtinë</span>
-                            <span class="event-source">Source: Kino ARMATA</span>
-                        </div>
-                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Brigada+e+Kosovës+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
-                    </div>
-                </article>
-
                 <!-- Event Card - MOISIU Festival -->
                 <article class="event-card event-card-live" data-category="museum" onclick="window.open('https://www.google.com/search?q=Festival+MOISIU+Prishtina+2025', '_blank')">
                     <div class="event-badge">🎉 LIVE EVENT</div>
@@ -900,6 +862,20 @@
         const MANUAL_EVENTS = [
             // UPCOMING EVENTS (Automatically sorted by date - Soonest first!)
             {
+                title: "Festivali i Xhazit të Prishtinës 2025",
+                titleEn: "Prishtina Jazz Festival 2025",
+                description: "Festivali ndërkombëtar vjetor i xhazit me muzikantë me famë botërore. Duke vazhduar që nga viti 2005, ky event prestigjioz prezanton më të mirën e muzikës xhaz në Teatrin ODA.",
+                descriptionEn: "Annual international jazz festival featuring world-class musicians. Running since 2005, this prestigious event showcases the best of jazz music at ODA Theatre.",
+                date: "Nov 14-19",
+                time: "",
+                location: "ODA Theatre, Prishtinë",
+                image: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=400",
+                category: "concert",
+                url: "https://www.instagram.com/prishtinajazzfest/",
+                source: "prishtinajazzfest",
+                isLive: true
+            },
+            {
                 title: "Filma të shkurtë nga Gjilani: 'Sinkopa' & 'Dogme 666'",
                 titleEn: "Short Films from Gjilan: 'Sinkopa' & 'Dogme 666'",
                 description: "Shfaqje e filmave të shkurtë nga Gjilani. Dy filma origjinalë nga kineastë lokalë.",
@@ -910,6 +886,20 @@
                 image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400",
                 category: "museum",
                 url: "https://www.facebook.com/kinoarmata/events",
+                source: "Kino ARMATA",
+                isLive: true
+            },
+            {
+                title: "Në Parajeën Socialiste (Nuk bie shi) - Ermela Tëli",
+                titleEn: "Socialist Paradise Film - Ermela Tëli",
+                description: "Shfaqje filmi dhe diskutim rreth epokës socialiste shqiptare. Event 3-orësh me veprën e Ermela Tëli. Organizuar nga Kino ARMATA dhe Biblioteka Konceptuale e K2.0.",
+                descriptionEn: "Film screening and discussion about Albanian socialist era. 3-hour event featuring Ermela Tëli's work. Hosted by Kino ARMATA and K2.0's Concept Library.",
+                date: "Nov 22",
+                time: "7:00 PM",
+                location: "Kino ARMATA, Brigada e Kosovës, Prishtinë",
+                image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400",
+                category: "museum",
+                url: "https://www.facebook.com/kinoarmata/",
                 source: "Kino ARMATA",
                 isLive: true
             },
