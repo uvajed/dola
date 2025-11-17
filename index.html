@@ -670,8 +670,8 @@
         </div>
 
         <!-- Add Event Floating Button -->
-        <button class="add-event-btn" id="addEventBtn" onclick="openAddEventModal()" title="Add your own event">
-            ➕ Add Event
+        <button class="add-event-btn" id="addEventBtn" onclick="openAddEventModal()" title="Add your own event" data-lang-sq="➕ Shto Ngjarje" data-lang-en="➕ Add Event">
+            ➕ Shto Ngjarje
         </button>
 
         <!-- Add Event Modal -->
@@ -1725,6 +1725,12 @@
             } else {
                 langToggle.textContent = '🇬🇧 EN';
             }
+
+            // Update elements with data-lang-sq and data-lang-en attributes
+            document.querySelectorAll('[data-lang-sq][data-lang-en]').forEach(element => {
+                const text = lang === 'sq' ? element.getAttribute('data-lang-sq') : element.getAttribute('data-lang-en');
+                element.textContent = text;
+            });
 
             // Update event badges
             document.querySelectorAll('.event-badge').forEach(badge => {
