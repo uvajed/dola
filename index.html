@@ -122,44 +122,6 @@
                     </div>
                 </article>
 
-                <!-- Event Card - Education Fair -->
-                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.eventbrite.com/d/kosovo--pristina/events/', '_blank')">
-                    <div class="event-badge">🎉 LIVE EVENT</div>
-                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400');"></div>
-                    <div class="event-content">
-                        <div class="event-header">
-                            <span class="event-category outdoor">Outdoor Activities</span>
-                            <span class="event-time">Coming Soon</span>
-                        </div>
-                        <h2 class="event-title" data-lang-en="Prishtina International Education Fair 2025" data-lang-sq="Panairi Ndërkombëtar i Arsimit Prishtinë 2025">Prishtina International Education Fair 2025</h2>
-                        <p class="event-description" data-lang-en="Explore. Connect. Succeed. Meet representatives from universities worldwide. Perfect for students planning their future." data-lang-sq="Eksploro. Lidhu. Sukseso. Takoni përfaqësues nga universitete nga e gjithë bota. Perfekt për studentët që planifikojnë të ardhmen e tyre.">Explore. Connect. Succeed. Meet representatives from universities worldwide. Perfect for students planning their future.</p>
-                        <div class="event-footer">
-                            <span class="event-location">📍 Prishtina Convention Center</span>
-                            <span class="event-source">Source: Eventbrite</span>
-                        </div>
-                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Prishtina+Convention+Center+Kosovo', '_blank')">📍 View on Maps</button>
-                    </div>
-                </article>
-
-                <!-- Event Card - Software Conference -->
-                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.eventbrite.com/d/kosovo--pristina/events/', '_blank')">
-                    <div class="event-badge">🎉 LIVE EVENT</div>
-                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400');"></div>
-                    <div class="event-content">
-                        <div class="event-header">
-                            <span class="event-category outdoor">Outdoor Activities</span>
-                            <span class="event-time">Coming Soon</span>
-                        </div>
-                        <h2 class="event-title">Software Freedom Kosova 2025 Conference</h2>
-                        <p class="event-description">Annual tech conference bringing together developers, designers, and tech enthusiasts. Learn about open source and innovation.</p>
-                        <div class="event-footer">
-                            <span class="event-location">📍 Prishtina</span>
-                            <span class="event-source">Source: Eventbrite</span>
-                        </div>
-                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
-                    </div>
-                </article>
-
                 <!-- Event Card - Christmas Market -->
                 <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.google.com/search?q=Pristina+Christmas+Market+2025', '_blank')">
                     <div class="event-badge">🎉 LIVE EVENT</div>
@@ -971,34 +933,6 @@
                 category: "concert",
                 url: "https://www.google.com/search?q=Dymos+Shizzo+ZONE+Club+Prishtina+December+31+2025",
                 source: "Local Events",
-                isLive: true,
-            },
-            {
-                title: "Panairi Ndërkombëtar i Arsimit Prishtinë 2025",
-                titleEn: "Prishtina International Education Fair 2025",
-                description: "Eksploro. Lidhu. Sukseso. Takoni përfaqësues nga universitete nga e gjithë bota. Perfekt për studentët që planifikojnë të ardhmen e tyre.",
-                descriptionEn: "Explore. Connect. Succeed. Meet representatives from universities worldwide. Perfect for students planning their future.",
-                date: "Coming Soon",
-                time: "TBA",
-                location: "Prishtina Convention Center",
-                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400",
-                category: "outdoor",
-                url: "https://www.eventbrite.com/d/kosovo--pristina/events/",
-                source: "Eventbrite",
-                isLive: true,
-            },
-            {
-                title: "Software Freedom Kosova 2025 Conference",
-                titleEn: "Software Freedom Kosova 2025 Conference",
-                description: "Konferenca vjetore teknologjike që bashkon zhvillues, dizajnerë dhe entuziastë teknologjie. Mësoni për open source dhe inovacion.",
-                descriptionEn: "Annual tech conference bringing together developers, designers, and tech enthusiasts. Learn about open source and innovation.",
-                date: "Coming Soon",
-                time: "TBA",
-                location: "Prishtinë",
-                image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400",
-                category: "outdoor",
-                url: "https://www.eventbrite.com/d/kosovo--pristina/events/",
-                source: "Eventbrite",
                 isLive: true,
             },
             {
@@ -1953,27 +1887,18 @@
 
         // Auto-refresh functionality - Refresh every hour
         // This will reload the page to fetch latest events
-        const REFRESH_INTERVAL = 60 * 60 * 1000; // 1 hour in milliseconds
+        // Auto-refresh disabled - events are manually updated
+        // const REFRESH_INTERVAL = 60 * 60 * 1000; // 1 hour in milliseconds
+        // setInterval(() => {
+        //     console.log('Auto-refreshing to fetch latest events...');
+        //     location.reload();
+        // }, REFRESH_INTERVAL);
 
-        // Set up auto-refresh
-        setInterval(() => {
-            console.log('Auto-refreshing to fetch latest events...');
-            location.reload();
-        }, REFRESH_INTERVAL);
-
-        // Show last update time
+        // Show last update time (no auto-refresh)
         const updateTimeElement = document.createElement('div');
         updateTimeElement.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: rgba(255,255,255,0.9); padding: 10px 15px; border-radius: 20px; font-size: 0.8rem; color: #666; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;';
-        updateTimeElement.innerHTML = `Last updated: ${new Date().toLocaleTimeString()}<br><small>Auto-refresh in 60 min</small>`;
+        updateTimeElement.innerHTML = `Last updated: ${new Date().toLocaleTimeString()}`;
         document.body.appendChild(updateTimeElement);
-
-        // Update the countdown timer
-        let minutesLeft = 60;
-        setInterval(() => {
-            minutesLeft--;
-            if (minutesLeft <= 0) minutesLeft = 60;
-            updateTimeElement.innerHTML = `Last updated: ${new Date().toLocaleTimeString()}<br><small>Auto-refresh in ${minutesLeft} min</small>`;
-        }, 60000); // Update every minute
 
         /*
          * NOTE: For production, you would replace the location.reload() with:
