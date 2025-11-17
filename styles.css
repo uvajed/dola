@@ -165,14 +165,14 @@ body {
     background: white;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
 }
 
 .event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
 }
 
 .event-image {
@@ -188,35 +188,37 @@ body {
     top: 15px;
     right: 15px;
     padding: 8px 16px;
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #e8b4fa 0%, #f5869e 100%);
     color: white;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border-radius: 20px;
     z-index: 10;
-    box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);
-    animation: pulse 2s infinite;
+    box-shadow: 0 2px 8px rgba(232, 180, 250, 0.25);
+    animation: pulse 4s ease-in-out infinite;
 }
 
 .venue-badge {
-    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-    box-shadow: 0 4px 12px rgba(132, 250, 176, 0.3);
+    background: linear-gradient(135deg, #a8e6cf 0%, #a2d5f2 100%);
+    box-shadow: 0 2px 8px rgba(168, 230, 207, 0.2);
     animation: none;
 }
 
 .event-card-live {
-    border: 2px solid #f093fb;
-    box-shadow: 0 4px 20px rgba(240, 147, 251, 0.2);
+    border: 1px solid #e8b4fa;
+    box-shadow: 0 2px 12px rgba(232, 180, 250, 0.15);
 }
 
 @keyframes pulse {
     0%, 100% {
         transform: scale(1);
+        opacity: 1;
     }
     50% {
-        transform: scale(1.05);
+        transform: scale(1.02);
+        opacity: 0.95;
     }
 }
 
@@ -225,60 +227,55 @@ body {
     position: absolute;
     top: 15px;
     left: 15px;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
     border: none;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.92);
     border-radius: 50%;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     cursor: pointer;
     z-index: 20;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
 }
 
 .favorite-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
 .favorite-btn.favorited {
-    background: rgba(255, 255, 255, 0.98);
-    animation: heartBeat 0.5s ease;
+    background: rgba(255, 255, 255, 0.95);
+    animation: heartBeat 0.4s ease;
 }
 
 @keyframes heartBeat {
     0%, 100% {
         transform: scale(1);
     }
-    25% {
-        transform: scale(1.2);
-    }
     50% {
-        transform: scale(0.95);
-    }
-    75% {
-        transform: scale(1.15);
+        transform: scale(1.08);
     }
 }
 
 /* Saved Events Button */
 .saved-events-btn {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+    background: linear-gradient(135deg, #e8b4fa 0%, #f5869e 100%) !important;
     color: white !important;
     border: none !important;
 }
 
 .saved-events-btn:hover {
-    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%) !important;
+    background: linear-gradient(135deg, #f5869e 0%, #e8b4fa 100%) !important;
+    opacity: 0.95;
 }
 
 .saved-events-btn.active {
-    box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.3);
-    transform: translateY(-2px);
+    box-shadow: 0 0 0 2px rgba(232, 180, 250, 0.25);
+    transform: translateY(-1px);
 }
 
 .event-content {
