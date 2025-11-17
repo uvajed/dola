@@ -767,7 +767,7 @@
 
         // Manually curated events (easy to update)
         const MANUAL_EVENTS = [
-            // UPCOMING EVENTS (Sorted by order number - Lower numbers appear first!)
+            // UPCOMING EVENTS (Automatically sorted by date - Soonest first!)
             {
                 title: "Filma të shkurtë nga Gjilani: 'Sinkopa' & 'Dogme 666'",
                 titleEn: "Short Films from Gjilan: 'Sinkopa' & 'Dogme 666'",
@@ -780,8 +780,7 @@
                 category: "museum",
                 url: "https://www.facebook.com/kinoarmata/events",
                 source: "Kino ARMATA",
-                isLive: true,
-                order: 1
+                isLive: true
             },
             {
                 title: "Festivali MOISIU 2025",
@@ -795,8 +794,7 @@
                 category: "museum",
                 url: "https://www.google.com/search?q=Festival+MOISIU+Prishtina+2025",
                 source: "festivali.moisiu",
-                isLive: true,
-                order: 2
+                isLive: true
             },
             {
                 title: "Tregu i Krishtlindjeve Prishtinë 2025",
@@ -811,7 +809,6 @@
                 url: "https://www.google.com/search?q=Pristina+Christmas+Market+2025",
                 source: "Ultimate Christmas Markets",
                 isLive: true,
-                order: 3
             },
             {
                 title: "Ndeshje UEFA Europa Conference League",
@@ -826,7 +823,6 @@
                 url: "https://www.google.com/search?q=UEFA+Europa+Conference+League+Stadiumi+Fadil+Vokrri+December+11+2025",
                 source: "Sofascore",
                 isLive: true,
-                order: 4
             },
             {
                 title: "Festa e Vallëzimit për Vitin e Ri - Jay Fase",
@@ -841,7 +837,6 @@
                 url: "https://www.google.com/search?q=Jay+Fase+ZONE+Club+Prishtina+December+31+2025",
                 source: "Local Events",
                 isLive: true,
-                order: 5
             },
             {
                 title: "Dymos & Shizzo - Seancë Downtempo për Vitin e Ri",
@@ -856,7 +851,6 @@
                 url: "https://www.google.com/search?q=Dymos+Shizzo+ZONE+Club+Prishtina+December+31+2025",
                 source: "Local Events",
                 isLive: true,
-                order: 6
             },
             {
                 title: "Panairi Ndërkombëtar i Arsimit Prishtinë 2025",
@@ -871,7 +865,6 @@
                 url: "https://www.eventbrite.com/d/kosovo--pristina/events/",
                 source: "Eventbrite",
                 isLive: true,
-                order: 7
             },
             {
                 title: "Software Freedom Kosova 2025 Conference",
@@ -886,7 +879,6 @@
                 url: "https://www.eventbrite.com/d/kosovo--pristina/events/",
                 source: "Eventbrite",
                 isLive: true,
-                order: 8
             },
             {
                 title: "Forumi i Rinisë së Ballkanit Perëndimor 2025",
@@ -901,7 +893,6 @@
                 url: "https://www.rycowb.org/open-call-for-participation-join-the-western-balkan-youth-forum-2025-in-pristina/",
                 source: "Regional Youth Cooperation Office",
                 isLive: true,
-                order: 9
             },
             {
                 title: "Venom Nightclub - Seanca DJ të Fundjavës",
@@ -916,7 +907,6 @@
                 url: "https://www.google.com/search?q=Venom+Nightclub+Prishtina+events",
                 source: "Evendo",
                 isLive: true,
-                order: 10
             },
             {
                 title: "Duplex Club - Netët Pop & Rap",
@@ -931,7 +921,6 @@
                 url: "https://www.google.com/search?q=Duplex+Club+Prishtina",
                 source: "TripAdvisor",
                 isLive: true,
-                order: 11
             },
             {
                 title: "Teatri ODA - Shfaqje Javore",
@@ -946,9 +935,8 @@
                 url: "https://teatrioda.com/",
                 source: "teatrioda.com",
                 isLive: true,
-                order: 12
             },
-            // PERMANENT VENUES (Sorted by order number - Lower numbers appear first!)
+            // PERMANENT VENUES (Displayed in order added - Put newest venues at top!)
             {
                 title: "Brezovica Ski Resort",
                 titleEn: "Brezovica Ski Resort",
@@ -962,7 +950,6 @@
                 url: "https://www.beinkosovo.com/brezovica-ski-center/",
                 source: "Brezovica Ski Center",
                 isLive: false,
-                order: 21
             },
             {
                 title: "Rugova Canyon Adventures",
@@ -977,7 +964,6 @@
                 url: "https://www.google.com/search?q=Rugova+Canyon+Kosovo",
                 source: "Balkan Natural Adventure",
                 isLive: false,
-                order: 22
             },
             {
                 title: "Peaks of the Balkans Trail",
@@ -992,7 +978,6 @@
                 url: "https://www.peaksofthebalkans.com/",
                 source: "Peaks of the Balkans",
                 isLive: false,
-                order: 23
             },
             {
                 title: "Galeria Kombëtare e Kosovës",
@@ -1007,7 +992,6 @@
                 url: "https://museumforall.eu/museum/pristina-the-national-gallery-of-kosovo/",
                 source: "National Gallery",
                 isLive: false,
-                order: 24
             },
             {
                 title: "Muzeu Etnologjik i Kosovës",
@@ -1022,7 +1006,6 @@
                 url: "https://www.kosovo-vacations.com/kosovo-museum.html",
                 source: "Kosovo Museum",
                 isLive: false,
-                order: 25
             },
             {
                 title: "Soma Book Station",
@@ -1037,7 +1020,6 @@
                 url: "https://www.spottedbylocals.com/prishtina/soma-book-station/",
                 source: "Spotted by Locals",
                 isLive: false,
-                order: 26
             },
             {
                 title: "Pazar i Prishtinës (Tuesdays)",
@@ -1052,7 +1034,6 @@
                 url: "https://www.tripadvisor.com/Attraction_Review-g295385-d2343617-Reviews-Bazaar-Pristina.html",
                 source: "Bazaar of Pristina",
                 isLive: false,
-                order: 27
             },
             {
                 title: "Pazar i Vjetër i Prizrenit",
@@ -1067,7 +1048,6 @@
                 url: "https://evendo.com/locations/kosovo/prizren/best-shops",
                 source: "Prizren Tourism",
                 isLive: false,
-                order: 28
             },
             {
                 title: "PrizrenFest - Festivali i Teatrit",
@@ -1082,7 +1062,6 @@
                 url: "https://www.festivalfinder.eu/festivals/prizren-fest",
                 source: "PrizrenFest",
                 isLive: false,
-                order: 29
             },
             {
                 title: "Filharmonia e Kosovës",
@@ -1097,7 +1076,6 @@
                 url: "https://www.instagram.com/kosovophilharmonic/",
                 source: "Instagram",
                 isLive: false,
-                order: 30
             },
             {
                 title: "Lulu's Coffee and Wine",
@@ -1112,7 +1090,6 @@
                 url: "https://www.instagram.com/luluscoffeeandwine/",
                 source: "Instagram",
                 isLive: false,
-                order: 31
             },
             {
                 title: "Vendum",
@@ -1127,7 +1104,6 @@
                 url: "https://www.instagram.com/vendum.ks/",
                 source: "Instagram",
                 isLive: false,
-                order: 32
             },
             {
                 title: "ZONE Club",
@@ -1142,7 +1118,6 @@
                 url: "https://www.facebook.com/zoneclubpr",
                 source: "Facebook",
                 isLive: false,
-                order: 33
             },
             {
                 title: "Tiffany Restaurant",
@@ -1157,7 +1132,6 @@
                 url: "https://www.google.com/search?q=Tiffany+Restaurant+Prishtina",
                 source: "Local Guides",
                 isLive: false,
-                order: 34
             },
             {
                 title: "Renaissance Restaurant",
@@ -1172,7 +1146,6 @@
                 url: "https://www.tripadvisor.com/Restaurant_Review-g295385-d2354337-Reviews-Renaissance-Pristina.html",
                 source: "TripAdvisor",
                 isLive: false,
-                order: 35
             },
             {
                 title: "Dit' e Nat'",
@@ -1187,7 +1160,6 @@
                 url: "https://www.tripadvisor.com/Restaurant_Review-g295385-d2078079-Reviews-Dit_e_Nat-Pristina.html",
                 source: "TripAdvisor",
                 isLive: false,
-                order: 36
             }
             // Add more real events here as you find them!
         ];
@@ -1222,6 +1194,30 @@
             localStorage.setItem('dolaEventsTimestamp', Date.now());
         }
 
+        // Helper function to parse dates for sorting
+        function parseDateForSorting(dateStr) {
+            // Handle special cases
+            if (!dateStr || dateStr === 'Coming Soon' || dateStr === 'Check Schedule' || dateStr === 'Open Daily' || dateStr === 'Weekly' || dateStr === 'This Weekend' || dateStr.includes('nightly') || dateStr.includes('Apr-') || dateStr.includes('Nov-') || dateStr.includes('Summer') || dateStr.includes('Every')) {
+                return new Date('2099-12-31').getTime(); // Put at end
+            }
+
+            // Handle date ranges like "Nov 22-27" or "Dec 6-30"
+            if (dateStr.includes('-') && !dateStr.includes('2025')) {
+                const parts = dateStr.split('-')[0].trim(); // Take first date
+                dateStr = parts;
+            }
+
+            // Parse dates like "Nov 19", "Dec 31", etc.
+            const currentYear = new Date().getFullYear();
+            const parsed = new Date(`${dateStr} ${currentYear}`);
+
+            if (isNaN(parsed.getTime())) {
+                return new Date('2099-12-31').getTime(); // Invalid dates at end
+            }
+
+            return parsed.getTime();
+        }
+
         // Render events dynamically
         function renderDynamicEvents(events) {
             const newsFeed = document.querySelector('.news-feed');
@@ -1229,12 +1225,19 @@
             // Clear existing events so we can render in correct order
             newsFeed.innerHTML = '';
 
-            // Sort events by order property (lower numbers first)
-            const sortedEvents = events.sort((a, b) => {
-                const orderA = a.order !== undefined ? a.order : 999;
-                const orderB = b.order !== undefined ? b.order : 999;
-                return orderA - orderB;
-            });
+            // Automatic sorting:
+            // 1. Separate live events and venues
+            const liveEvents = events.filter(e => e.isLive);
+            const venues = events.filter(e => !e.isLive);
+
+            // 2. Sort live events by date (soonest first)
+            liveEvents.sort((a, b) => parseDateForSorting(a.date) - parseDateForSorting(b.date));
+
+            // 3. Venues maintain array order (first in MANUAL_EVENTS = first displayed)
+            // No sorting needed - they're already in the order you added them
+
+            // 4. Combine: live events first, then venues
+            const sortedEvents = [...liveEvents, ...venues];
 
             const dynamicHTML = sortedEvents.map(event => {
                 // Use language-specific title/description if available

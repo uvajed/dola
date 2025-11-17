@@ -65,28 +65,32 @@ Page automatically reloads every 60 minutes (`REFRESH_INTERVAL = 60 * 60 * 1000`
 
 For production, replace `location.reload()` with API calls to event sources (Facebook Graph API, Eventbrite API, etc.).
 
-## Event Ordering System
+## Automatic Event Ordering System
 
-All events in `MANUAL_EVENTS` array have an `order` property that controls display order:
+Events are automatically sorted without manual order numbers:
 
-- **Lower order numbers appear first** (e.g., `order: 1` appears before `order: 10`)
-- **Live events**: Use order numbers 1-20 (sorted by date, soonest first)
-- **Permanent venues**: Use order numbers 21+ (newest venues first)
-- Events without an `order` property default to 999 (appear last)
+- **Live events**: Automatically sorted by date (soonest first)
+  - Events with specific dates like "Nov 19" or "Dec 31" appear first
+  - Events with vague dates like "Coming Soon" or "This Weekend" appear last
+  - Sorting happens automatically based on the `date` field
 
-The `renderDynamicEvents()` function automatically sorts by the `order` property before rendering.
+- **Permanent venues**: Displayed in the order they appear in the array
+  - First venue in the array = first venue displayed
+  - To move a venue to the top, move it to the top of the PERMANENT VENUES section in the code
 
-### To Reorder Events:
+The `renderDynamicEvents()` function automatically:
+1. Separates live events and venues
+2. Sorts live events by date
+3. Keeps venues in array order
+4. Displays live events first, then venues
 
-Simply change the `order` number in the event object. For example, to move Brezovica to the top of permanent venues:
+### To Reorder Venues:
 
-```javascript
-{
-    title: "Brezovica Ski Resort",
-    // ... other properties
-    order: 21  // Change this number to reorder
-}
-```
+Simply cut and paste the venue object to a new position in the `MANUAL_EVENTS` array. For example, to make Rugova Canyon appear first:
+
+1. Cut the Rugova Canyon event object
+2. Paste it right after the `// PERMANENT VENUES` comment
+3. It will now appear first among venues!
 
 ## Adding New Events
 
@@ -100,11 +104,10 @@ Simply change the `order` number in the event object. For example, to move Brezo
    - `url` (event website or Google search)
    - `source` (event source name)
    - `isLive` (`true` for time-specific events, `false` for permanent venues)
-   - `order` (number determining display position)
-3. Assign appropriate `order` number:
-   - For live events: Use 1-20 range, ordered by date
-   - For new venues: Use 21-30 range for newest venues
-   - For older venues: Use 31+ range
+3. Placement:
+   - For live events: Add anywhere in the UPCOMING EVENTS section (they'll auto-sort by date)
+   - For new venues: Add at the TOP of the PERMANENT VENUES section to show them first
+   - For older venues: Add at the bottom of the PERMANENT VENUES section
 
 ## CSS Architecture
 
