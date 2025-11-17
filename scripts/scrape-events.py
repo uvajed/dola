@@ -212,13 +212,70 @@ def scrape_google_events():
 
     print("🔍 Searching Google for Kosovo events...")
 
-    # Search queries for Kosovo events
+    # Comprehensive search queries - organized by type
+    from datetime import datetime
+    current_month = datetime.now().strftime("%B %Y")
+    current_year = datetime.now().year
+
     search_queries = [
-        "events in Prishtina Kosovo this week",
-        "concerts Kosovo November 2025",
-        "Prizren events",
-        "Kosovo nightlife events"
+        # GENERAL KOSOVO EVENTS (English)
+        f"events in Kosovo {current_month}",
+        f"things to do in Kosovo this weekend",
+        f"Kosovo cultural events {current_year}",
+        "upcoming events Kosovo",
+        "Kosovo event calendar",
+
+        # CITY-SPECIFIC EVENTS (Major cities)
+        f"events in Prishtina Kosovo this week",
+        f"things to do Prishtina {current_month}",
+        "Prishtina nightlife events",
+        "Prishtina concerts",
+        f"Prizren events {current_month}",
+        "Prizren festivals",
+        "Prizren DokuFest",
+        f"Peja events Kosovo",
+        "Peja outdoor activities",
+        f"Gjakova events {current_year}",
+
+        # CATEGORY-SPECIFIC
+        f"Kosovo concerts {current_month}",
+        "live music Kosovo Prishtina",
+        "Kosovo nightclubs parties",
+        "Kosovo cultural festivals",
+        "Kosovo museums exhibitions",
+        "Kosovo theater performances",
+        "Kosovo food festivals",
+        "Kosovo art exhibitions",
+        "Kosovo sports events",
+
+        # VENUE-SPECIFIC
+        "Kino ARMATA events",
+        "ZONE Club Prishtina",
+        "ODA Theatre Kosovo",
+        "Vendum Kosovo events",
+        "Prishtina National Theatre",
+
+        # ALBANIAN LANGUAGE SEARCHES
+        "ngjarje në Prishtinë",
+        f"eventet në Kosovë {current_month}",
+        "koncerte Prishtinë",
+        "festivale Kosovë",
+        "jetë nate Prishtinë",
+
+        # EVENT AGGREGATORS & TOURISM
+        "Visit Kosovo events",
+        "Kosovo tourism events",
+        "Kosovo event listings",
+        "what's on in Kosovo",
+        "Kosovo this weekend"
     ]
+
+    # Limit queries to stay within Google's free tier (100 searches/day)
+    # With ~40 queries, we'll do 2 results each = ~80 API calls
+    MAX_QUERIES = 40  # Stay under 100/day limit
+    search_queries = search_queries[:MAX_QUERIES]
+
+    print(f"   Running {len(search_queries)} searches (max {MAX_QUERIES*2} results)")
 
     for query in search_queries:
         try:
@@ -227,7 +284,7 @@ def scrape_google_events():
                 'key': api_key,
                 'cx': search_engine_id,
                 'q': query,
-                'num': 3  # Get 3 results per query
+                'num': 2  # Get 2 results per query (stay under free tier limit)
             }
 
             response = requests.get(url, params=params, timeout=10)
