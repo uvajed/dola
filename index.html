@@ -58,6 +58,7 @@
                 <button class="category-btn" data-i18n="catOutdoor" data-category-key="outdoor">Outdoor Activities</button>
                 <button class="category-btn" data-i18n="catRestaurants" data-category-key="restaurant">Restaurants</button>
                 <button class="category-btn" data-i18n="catConcerts" data-category-key="concert">Concerts & Shows</button>
+                <button class="category-btn saved-events-btn" id="savedEventsBtn" onclick="toggleSavedEvents()">💾 Saved Events</button>
             </section>
 
             <!-- News Feed -->
@@ -1194,6 +1195,107 @@
             localStorage.setItem('dolaEventsTimestamp', Date.now());
         }
 
+        // ========================================
+        // FAVORITES SYSTEM
+        // ========================================
+
+        // Generate unique ID from event title
+        function generateEventId(event) {
+            const title = (event.titleEn || event.title).toLowerCase();
+            return title.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        }
+
+        // Get saved favorites from localStorage
+        function getSavedFavorites() {
+            const saved = localStorage.getItem('dolaFavorites');
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        // Save favorites to localStorage
+        function saveFavorites(favorites) {
+            localStorage.setItem('dolaFavorites', JSON.stringify(favorites));
+        }
+
+        // Toggle favorite status
+        function toggleFavorite(eventId) {
+            let favorites = getSavedFavorites();
+            const index = favorites.indexOf(eventId);
+
+            if (index > -1) {
+                // Remove from favorites
+                favorites.splice(index, 1);
+            } else {
+                // Add to favorites
+                favorites.push(eventId);
+            }
+
+            saveFavorites(favorites);
+
+            // Update heart icon
+            updateHeartIcon(eventId);
+
+            // Update saved events count
+            updateSavedCount();
+        }
+
+        // Update heart icon appearance
+        function updateHeartIcon(eventId) {
+            const favorites = getSavedFavorites();
+            const heartBtn = document.querySelector(`[data-event-id="${eventId}"] .favorite-btn`);
+
+            if (heartBtn) {
+                if (favorites.includes(eventId)) {
+                    heartBtn.classList.add('favorited');
+                    heartBtn.innerHTML = '❤️';
+                } else {
+                    heartBtn.classList.remove('favorited');
+                    heartBtn.innerHTML = '🤍';
+                }
+            }
+        }
+
+        // Update saved events count in button
+        function updateSavedCount() {
+            const count = getSavedFavorites().length;
+            const savedBtn = document.getElementById('savedEventsBtn');
+            if (savedBtn) {
+                const countText = count > 0 ? ` (${count})` : '';
+                savedBtn.textContent = currentLang === 'sq' ? `Eventet e Ruajtura${countText}` : `Saved Events${countText}`;
+            }
+        }
+
+        // Filter to show only saved events
+        let showingSavedOnly = false;
+        function toggleSavedEvents() {
+            showingSavedOnly = !showingSavedOnly;
+            const savedBtn = document.getElementById('savedEventsBtn');
+
+            if (showingSavedOnly) {
+                savedBtn.classList.add('active');
+                filterSavedEvents();
+            } else {
+                savedBtn.classList.remove('active');
+                // Show all events again
+                const allCards = document.querySelectorAll('.event-card');
+                allCards.forEach(card => card.style.display = 'block');
+            }
+        }
+
+        // Filter events to show only saved ones
+        function filterSavedEvents() {
+            const favorites = getSavedFavorites();
+            const allCards = document.querySelectorAll('.event-card');
+
+            allCards.forEach(card => {
+                const eventId = card.getAttribute('data-event-id');
+                if (favorites.includes(eventId)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
         // Helper function to parse dates for sorting
         function parseDateForSorting(dateStr) {
             // Handle special cases
@@ -1244,8 +1346,17 @@
                 const title = currentLang === 'sq' ? event.title : (event.titleEn || event.title);
                 const description = currentLang === 'sq' ? event.description : (event.descriptionEn || event.description);
 
+                // Generate unique ID and check if favorited
+                const eventId = generateEventId(event);
+                const favorites = getSavedFavorites();
+                const isFavorited = favorites.includes(eventId);
+                const heartIcon = isFavorited ? '❤️' : '🤍';
+
                 return `
-                <article class="event-card ${event.isLive ? 'event-card-live' : ''}" data-category="${event.category}" onclick="window.open('${event.url}', '_blank')">
+                <article class="event-card ${event.isLive ? 'event-card-live' : ''}" data-category="${event.category}" data-event-id="${eventId}" onclick="window.open('${event.url}', '_blank')">
+                    <button class="favorite-btn ${isFavorited ? 'favorited' : ''}" onclick="event.stopPropagation(); toggleFavorite('${eventId}')" title="Save to favorites">
+                        ${heartIcon}
+                    </button>
                     <div class="event-badge ${event.isLive ? '' : 'venue-badge'}">${event.isLive ? '🎉 LIVE EVENT' : '📍 VENUE'}</div>
                     <div class="event-image" style="background-image: url('${event.image}');"></div>
                     <div class="event-content">
@@ -1265,6 +1376,9 @@
             `}).join('');
 
             newsFeed.innerHTML = dynamicHTML;
+
+            // Update saved count after rendering
+            updateSavedCount();
         }
 
         // Helper function to get category display name
