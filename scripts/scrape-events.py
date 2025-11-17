@@ -463,22 +463,34 @@ def update_html_file(events):
     # Parse existing events
     existing_events_str = match.group(1)
 
+    # Helper function to escape quotes and special characters
+    def escape_js_string(s):
+        if not s:
+            return ""
+        # Replace double quotes with single quotes to avoid breaking strings
+        s = s.replace('"', "'")
+        # Remove newlines and carriage returns
+        s = s.replace('\n', ' ').replace('\r', ' ')
+        # Remove multiple spaces
+        s = re.sub(r'\s+', ' ', s)
+        return s.strip()
+
     # Generate new events JavaScript
     new_events_js = []
     for event in events:
         event_js = f"""
             {{
-                title: "{event['title']}",
-                titleEn: "{event['titleEn']}",
-                description: "{event['description']}",
-                descriptionEn: "{event['descriptionEn']}",
-                date: "{event['date']}",
-                time: "{event['time']}",
-                location: "{event['location']}",
+                title: "{escape_js_string(event['title'])}",
+                titleEn: "{escape_js_string(event['titleEn'])}",
+                description: "{escape_js_string(event['description'])}",
+                descriptionEn: "{escape_js_string(event['descriptionEn'])}",
+                date: "{escape_js_string(event['date'])}",
+                time: "{escape_js_string(event['time'])}",
+                location: "{escape_js_string(event['location'])}",
                 image: "{event['image']}",
                 category: "{event['category']}",
                 url: "{event['url']}",
-                source: "{event['source']}",
+                source: "{escape_js_string(event['source'])}",
                 isLive: {str(event['isLive']).lower()}
             }}"""
         new_events_js.append(event_js)
