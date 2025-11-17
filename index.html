@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dola - Discover Local Events in Kosovo</title>
+    <meta name="description" content="Discover events, bars, restaurants, museums and activities in Prishtina, Peja, Prizren and across Kosovo. Your guide to what's happening now!">
+
+    <!-- Facebook Open Graph Meta Tags -->
+    <meta property="og:title" content="Dola - Discover Kosovo Events">
+    <meta property="og:description" content="Find live events, nightlife, culture, and outdoor activities across Kosovo - Prishtina, Peja, Prizren & more!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://uvajed.github.io/dola/">
+    <meta property="og:image" content="https://uvajed.github.io/dola/dola.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+    <meta property="fb:app_id" content="1234567890">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dola - Discover Kosovo Events">
+    <meta name="twitter:description" content="Find live events, nightlife, culture, and outdoor activities across Kosovo">
+    <meta name="twitter:image" content="https://uvajed.github.io/dola/dola.jpg">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>Dola</h1>
+                <p class="tagline" data-i18n="tagline">Zbulo çka po ndodh në Kosovë</p>
+            </div>
+            <nav class="nav">
+                <input type="text" class="search-bar" placeholder="Search by city, event name, location..." data-i18n-placeholder="searchPlaceholder">
+                <button class="filter-btn" data-i18n="resetFilters">Reset Filters</button>
+                <button class="lang-btn" id="langToggle">🇦🇱 SQ</button>
+                <span class="search-results" style="display: none; margin-left: 10px; font-size: 0.9rem; color: #667eea; font-weight: 600;"></span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Disclaimer Notice -->
+            <div style="background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); border-left: 4px solid #f5576c;">
+                <p style="margin: 0; color: #636e72; font-size: 0.9rem;">
+                    ⚠️ <strong data-i18n="disclaimerNotice">Eventet nuk janë të konfirmuara. Mund të ketë gabime ose evente të skaduara!</strong>
+                </p>
+            </div>
+
+            <!-- Category Filters -->
+            <section class="categories">
+                <button class="category-btn active" data-i18n="catAll" data-category-key="all">All Events</button>
+                <button class="category-btn" data-i18n="catBars" data-category-key="bars">Bars & Nightlife</button>
+                <button class="category-btn" data-i18n="catMuseums" data-category-key="museum">Museums & Culture</button>
+                <button class="category-btn" data-i18n="catOutdoor" data-category-key="outdoor">Outdoor Activities</button>
+                <button class="category-btn" data-i18n="catRestaurants" data-category-key="restaurant">Restaurants</button>
+                <button class="category-btn" data-i18n="catConcerts" data-category-key="concert">Concerts & Shows</button>
+            </section>
+
+            <!-- News Feed -->
+            <section class="news-feed">
+                <!-- TIME-SPECIFIC EVENTS -->
+
+                <!-- Event Card - MOISIU Festival -->
+                <article class="event-card event-card-live" data-category="museum" onclick="window.open('https://www.google.com/search?q=Festival+MOISIU+Prishtina+2025', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1503095396549-807759245b35?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category museum">Museums & Culture</span>
+                            <span class="event-time">Nov 22-27, 2025</span>
+                        </div>
+                        <h2 class="event-title" data-lang-en="MOISIU Festival 2025" data-lang-sq="Festivali MOISIU 2025">Festivali MOISIU 2025</h2>
+                        <p class="event-description" data-lang-en="Annual theater and cultural festival in Prishtina. Official dates: November 22-27, 2025. Experience the best of Albanian performing arts!" data-lang-sq="Festivali vjetor i teatrit dhe kulturës në Prishtinë. Datat zyrtare: 22-27 nëntor 2025. Përjetoni më të mirën e arteve shfaqëse shqiptare!">Festivali vjetor i teatrit dhe kulturës në Prishtinë. Datat zyrtare: 22-27 nëntor 2025. Përjetoni më të mirën e arteve shfaqëse shqiptare!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtinë, Kosovë</span>
+                            <span class="event-source">Source: festivali.moisiu</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - NYE Party 1 -->
+                <article class="event-card event-card-live" data-category="concert" onclick="window.open('https://www.google.com/search?q=Jay+Fase+ZONE+Club+Prishtina+December+31+2025', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category concert">Concerts & Shows</span>
+                            <span class="event-time">Dec 31, 9:00 PM</span>
+                        </div>
+                        <h2 class="event-title" data-lang-en="Jay Fase - New Year's Eve Dance Party" data-lang-sq="Jay Fase - Festa e Vallëzimit për Vitin e Ri">Jay Fase - New Year's Eve Dance Party</h2>
+                        <p class="event-description" data-lang-en="Ring in 2026 with Jay Fase at ZONE Club! Dance genre music all night long. Don't miss the biggest NYE celebration in Prishtina." data-lang-sq="Prit vitin 2026 me Jay Fase në ZONE Club! Muzikë vallëzimi gjithë natën. Mos humbisni festimin më të madh të Vitit të Ri në Prishtinë.">Ring in 2026 with Jay Fase at ZONE Club! Dance genre music all night long. Don't miss the biggest NYE celebration in Prishtina.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 ZONE Club, Prishtina</span>
+                            <span class="event-source">Source: Local Events</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=ZONE+Club+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - NYE Party 2 -->
+                <article class="event-card event-card-live" data-category="concert" onclick="window.open('https://www.google.com/search?q=Dymos+Shizzo+ZONE+Club+Prishtina+December+31+2025', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category concert">Concerts & Shows</span>
+                            <span class="event-time">Dec 31, 10:00 PM</span>
+                        </div>
+                        <h2 class="event-title" data-lang-en="Dymos & Shizzo - NYE Downtempo Session" data-lang-sq="Dymos & Shizzo - Seancë Downtempo për Vitin e Ri">Dymos & Shizzo - NYE Downtempo Session</h2>
+                        <p class="event-description" data-lang-en="Experience a unique downtempo performance by Dymos & Shizzo at ZONE Club this New Year's Eve. Chill vibes to end the year." data-lang-sq="Përjetoni një performancë unike downtempo nga Dymos & Shizzo në ZONE Club këtë Vit të Ri. Vibra relaksuese për ta mbyllur vitin.">Experience a unique downtempo performance by Dymos & Shizzo at ZONE Club this New Year's Eve. Chill vibes to end the year.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 ZONE Club, Prishtina</span>
+                            <span class="event-source">Source: Local Events</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=ZONE+Club+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Education Fair -->
+                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.eventbrite.com/d/kosovo--pristina/events/', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Coming Soon</span>
+                        </div>
+                        <h2 class="event-title" data-lang-en="Prishtina International Education Fair 2025" data-lang-sq="Panairi Ndërkombëtar i Arsimit Prishtinë 2025">Prishtina International Education Fair 2025</h2>
+                        <p class="event-description" data-lang-en="Explore. Connect. Succeed. Meet representatives from universities worldwide. Perfect for students planning their future." data-lang-sq="Eksploro. Lidhu. Sukseso. Takoni përfaqësues nga universitete nga e gjithë bota. Perfekt për studentët që planifikojnë të ardhmen e tyre.">Explore. Connect. Succeed. Meet representatives from universities worldwide. Perfect for students planning their future.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina Convention Center</span>
+                            <span class="event-source">Source: Eventbrite</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Prishtina+Convention+Center+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Software Conference -->
+                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.eventbrite.com/d/kosovo--pristina/events/', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Coming Soon</span>
+                        </div>
+                        <h2 class="event-title">Software Freedom Kosova 2025 Conference</h2>
+                        <p class="event-description">Annual tech conference bringing together developers, designers, and tech enthusiasts. Learn about open source and innovation.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina</span>
+                            <span class="event-source">Source: Eventbrite</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Christmas Market -->
+                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.google.com/search?q=Pristina+Christmas+Market+2025', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1543589161-5c7d1c3d8d0a?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Dec 6-30, 2-10 PM</span>
+                        </div>
+                        <h2 class="event-title">Pristina Christmas Market 2025</h2>
+                        <p class="event-description">120 wooden huts with food, drinks, music & crafts. Features carousel, ice skating, filigree jewelry, traditional flia & burek. FREE admission!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Mother Theresa Square</span>
+                            <span class="event-source">Source: Ultimate Christmas Markets</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Mother+Theresa+Square+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Football Match -->
+                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.google.com/search?q=UEFA+Europa+Conference+League+Stadiumi+Fadil+Vokrri+December+11+2025', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Dec 11, 6:45 PM</span>
+                        </div>
+                        <h2 class="event-title">UEFA Europa Conference League Match</h2>
+                        <p class="event-description">European football action at Stadiumi Fadil Vokrri. League Stage - Round 5. Get your tickets now for an exciting match!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Stadiumi Fadil Vokrri</span>
+                            <span class="event-source">Source: Sofascore</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Stadiumi+Fadil+Vokrri+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Western Balkan Youth Forum -->
+                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.rycowb.org/open-call-for-participation-join-the-western-balkan-youth-forum-2025-in-pristina/', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Coming Soon</span>
+                        </div>
+                        <h2 class="event-title">Western Balkan Youth Forum 2025</h2>
+                        <p class="event-description">Focus on Migration, Security & Economic Growth. Supported by UK Government. Network with young leaders across the Balkans.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina</span>
+                            <span class="event-source">Source: Regional Youth Cooperation Office</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Venom Nightclub Weekend -->
+                <article class="event-card event-card-live" data-category="bars" onclick="window.open('https://www.google.com/search?q=Venom+Nightclub+Prishtina+events', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category bars">Bars & Nightlife</span>
+                            <span class="event-time">This Weekend</span>
+                        </div>
+                        <h2 class="event-title">Venom Nightclub - Weekend DJ Sessions</h2>
+                        <p class="event-description">Premier nightlife destination with renowned DJs spinning latest hits & classic dance anthems. The pulse of Pristina's nightlife!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Venom Nightclub, Prishtina</span>
+                            <span class="event-source">Source: Evendo</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Venom+Nightclub+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Duplex Club -->
+                <article class="event-card event-card-live" data-category="bars" onclick="window.open('https://www.google.com/search?q=Duplex+Club+Prishtina', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1470229538611-16ba8c7ffbd7?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category bars">Bars & Nightlife</span>
+                            <span class="event-time">Wed-Sat, 11PM-4AM</span>
+                        </div>
+                        <h2 class="event-title">Duplex Club - Pop & Rap Nights</h2>
+                        <p class="event-description">Live music & DJs playing pop and rap. Open Wednesday to Saturday from 23:00 to 4:00. The most expensive club in the Balkans!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Duplex Club, Prishtina</span>
+                            <span class="event-source">Source: TripAdvisor</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Duplex+Club+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - ODA Theatre -->
+                <article class="event-card event-card-live" data-category="museum" onclick="window.open('https://teatrioda.com/', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1503095396549-807759245b35?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category museum">Museums & Culture</span>
+                            <span class="event-time">Weekly Performances</span>
+                        </div>
+                        <h2 class="event-title">ODA Theatre - Live Performances</h2>
+                        <p class="event-description">Independent theatre showcasing contemporary plays, experimental performances. Check schedule for this week's shows!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 ODA Theatre, Prishtina</span>
+                            <span class="event-source">Source: teatrioda.com</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=ODA+Theatre+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - National Theatre -->
+                <article class="event-card event-card-live" data-category="museum" onclick="window.open('https://pristina.theater/?jezik=en', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category museum">Museums & Culture</span>
+                            <span class="event-time">Weekly Shows</span>
+                        </div>
+                        <h2 class="event-title">National Theatre of Kosovo</h2>
+                        <p class="event-description">Leading theatrical institution with live performances every week. Connects with theatres across Kosovo for diverse programming.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 National Theatre, Prishtina</span>
+                            <span class="event-source">Source: pristina.theater</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=National+Theatre+Kosovo+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Zanzi Jazz Bar -->
+                <article class="event-card event-card-live" data-category="bars" onclick="window.open('https://www.google.com/search?q=Zanzi+Jazz+Bar+Prishtina', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category bars">Bars & Nightlife</span>
+                            <span class="event-time">Mon-Sat, 11PM+</span>
+                        </div>
+                        <h2 class="event-title">Zanzi Jazz Bar - Live Jazz Nights</h2>
+                        <p class="event-description">Prishtina's oldest entertainment venue. Packed after 11pm with parties until early hours. Closed Sundays. City center location!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Zanzi Jazz Bar, City Center</span>
+                            <span class="event-source">Source: Local Guides</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Zanzi+Jazz+Bar+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Germia Park Activities -->
+                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.google.com/search?q=Germia+Park+Prishtina+activities', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Daily</span>
+                        </div>
+                        <h2 class="event-title">Germia Park - Outdoor Concerts & Activities</h2>
+                        <p class="event-description">Festivals, concerts, sports courts, hiking trails, swimming pool. Vibrant community space with cultural events. €1 parking fee.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Germia Park</span>
+                            <span class="event-source">Source: TripAdvisor</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Germia+Park+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Miqt Pub -->
+                <article class="event-card event-card-live" data-category="bars" onclick="window.open('https://www.google.com/search?q=Miqt+Pub+Prishtina', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1533093818801-c8936b09cd86?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category bars">Bars & Nightlife</span>
+                            <span class="event-time">Nightly</span>
+                        </div>
+                        <h2 class="event-title">Miqt Pub - Nightly DJ Events</h2>
+                        <p class="event-description">Regular events and DJs every night! Great atmosphere, friendly crowd, and good vibes. Popular spot for locals and visitors.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Miqt Pub, Prishtina</span>
+                            <span class="event-source">Source: Nightlife Guide</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Miqt+Pub+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- EVENT CARDS FROM OTHER CITIES -->
+
+                <!-- Event Card - DokuFest Prizren -->
+                <article class="event-card event-card-live" data-category="museum" onclick="window.open('https://www.google.com/search?q=DokuFest+Prizren+2025', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category museum">Museums & Culture</span>
+                            <span class="event-time">Summer 2025</span>
+                        </div>
+                        <h2 class="event-title">DokuFest - International Documentary Film Festival</h2>
+                        <p class="event-description">Kosovo's largest film festival in Prizren. 200+ films from around the world, outdoor screenings, workshops, and cultural events.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prizren, Kosovo</span>
+                            <span class="event-source">Source: DokuFest</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Prizren+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Peja Patriarchate -->
+                <article class="event-card event-card-live" data-category="museum" onclick="window.open('https://www.google.com/search?q=Peja+Patriarchate+Kosovo', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1548013146-72479768bada?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category museum">Museums & Culture</span>
+                            <span class="event-time">Daily Tours</span>
+                        </div>
+                        <h2 class="event-title">Patriarchate of Peć - UNESCO Heritage Site Tours</h2>
+                        <p class="event-description">Visit the medieval Serbian Orthodox monastery complex in Peja. UNESCO World Heritage site with stunning Byzantine architecture.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Peja, Kosovo</span>
+                            <span class="event-source">Source: UNESCO</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Patriarchate+of+Pec+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Rugova Canyon Hiking -->
+                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.google.com/search?q=Rugova+Canyon+Peja+hiking', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Year-Round</span>
+                        </div>
+                        <h2 class="event-title">Rugova Canyon Hiking & Adventure Tours</h2>
+                        <p class="event-description">Explore Rugova Canyon near Peja - one of Europe's deepest canyons. Hiking, rock climbing, via ferrata, and breathtaking mountain views!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Peja, Rugova Valley</span>
+                            <span class="event-source">Source: Adventure Tourism Kosovo</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Rugova+Canyon+Peja+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Gjakova Old Bazaar -->
+                <article class="event-card event-card-live" data-category="outdoor" onclick="window.open('https://www.google.com/search?q=Gjakova+Old+Bazaar+Kosovo', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Daily</span>
+                        </div>
+                        <h2 class="event-title">Gjakova Old Bazaar - Traditional Market</h2>
+                        <p class="event-description">Explore Kosovo's oldest bazaar in Gjakova. Traditional crafts, local products, historic architecture. One of the longest bazaars in the Balkans!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Gjakova, Kosovo</span>
+                            <span class="event-source">Source: Visit Kosovo</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Gjakova+Old+Bazaar+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card - Prizren Castle -->
+                <article class="event-card event-card-live" data-category="museum" onclick="window.open('https://www.google.com/search?q=Prizren+Castle+Kosovo', '_blank')">
+                    <div class="event-badge">🎉 LIVE EVENT</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1518623001395-125242310d0c?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category museum">Museums & Culture</span>
+                            <span class="event-time">Daily Visits</span>
+                        </div>
+                        <h2 class="event-title">Prizren Fortress - Historic Castle Tours</h2>
+                        <p class="event-description">Visit the medieval fortress overlooking Prizren. Panoramic city views, historic ruins, and sunset watching. Free admission!</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prizren, Kosovo</span>
+                            <span class="event-source">Source: Prizren Tourism</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Prizren+Castle+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- PERMANENT VENUES -->
+
+                <!-- Event Card 1 -->
+                <article class="event-card" data-category="bars" onclick="window.open('https://www.google.com/search?q=Spray+Club+Prishtina+Kosovo+TripAdvisor', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category bars">Bars & Nightlife</span>
+                            <span class="event-time">Open Now</span>
+                        </div>
+                        <h2 class="event-title">Spray Club - Premier Nightspot</h2>
+                        <p class="event-description">Kosovo's premier nightspot with spacious, minimalist interior. Regularly hosting some of the region's best DJs.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Pejton City, Prishtina</span>
+                            <span class="event-source">Source: TripAdvisor</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Spray+Club+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 2 -->
+                <article class="event-card" data-category="restaurant" onclick="window.open('https://www.google.com/search?q=Pishat+Restaurant+Prishtina+Kosovo+reviews', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category restaurant">Restaurants</span>
+                            <span class="event-time">Open Daily</span>
+                        </div>
+                        <h2 class="event-title">Pishat Restaurant</h2>
+                        <p class="event-description">One of the most popular restaurants in Pristina, offering local foods in atmospheric surroundings.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina</span>
+                            <span class="event-source">Source: Local Reviews</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Pishat+Restaurant+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 3 -->
+                <article class="event-card" data-category="restaurant" onclick="window.open('https://www.google.com/search?q=Soma+Book+Station+Cafe+Prishtina+Kosovo', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category restaurant">Restaurants</span>
+                            <span class="event-time">Open Daily</span>
+                        </div>
+                        <h2 class="event-title">Soma Book Station Cafe</h2>
+                        <p class="event-description">The most beautiful cafe in Prishtina with shelves of books and a garden. Perfect for coffee and reading.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina</span>
+                            <span class="event-source">Source: Spotted by Locals</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Soma+Book+Station+Cafe+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 4 -->
+                <article class="event-card" data-category="museum" onclick="window.open('https://www.google.com/search?q=Ethnographic+Museum+Prishtina+Kosovo', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1566127444979-b3d2b1b5e3a7?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category museum">Museums & Culture</span>
+                            <span class="event-time">Tue-Sun</span>
+                        </div>
+                        <h2 class="event-title">Ethnographic Museum</h2>
+                        <p class="event-description">Explore Kosovo's heritage and traditional culture. Affordable entry, open Tuesday to Sunday.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina Center</span>
+                            <span class="event-source">Source: Tourism Kosovo</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Ethnographic+Museum+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 5 -->
+                <article class="event-card" data-category="restaurant" onclick="window.open('https://www.google.com/search?q=Tiffany+Restaurant+Prishtina+Kosovo+reviews', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category restaurant">Restaurants</span>
+                            <span class="event-time">Open Daily</span>
+                        </div>
+                        <h2 class="event-title">Tiffany Restaurant</h2>
+                        <p class="event-description">One of the best places for traditional meals. Try their signature 'Elbasan tava' - slow cooked lamb with egg and yoghurt.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina</span>
+                            <span class="event-source">Source: Local Guides</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Tiffany+Restaurant+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 6 -->
+                <article class="event-card" data-category="bars" onclick="window.open('https://www.google.com/search?q=Rakija+Street+Prishtina+Kosovo', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category bars">Bars & Nightlife</span>
+                            <span class="event-time">Evenings</span>
+                        </div>
+                        <h2 class="event-title">Rakija Street Bar Scene</h2>
+                        <p class="event-description">Ten bars with ample patio seating. The place to see and be seen over cheap drinks and grilled meats.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Rakija Street, Prishtina</span>
+                            <span class="event-source">Source: Where Goes Rose</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Rakija+Street+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 7 -->
+                <article class="event-card" data-category="museum" onclick="window.open('https://www.google.com/search?q=National+Gallery+of+Kosovo+Prishtina', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1533854775446-95c4609da544?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category museum">Museums & Culture</span>
+                            <span class="event-time">Open Now</span>
+                        </div>
+                        <h2 class="event-title">National Gallery of Kosovo</h2>
+                        <p class="event-description">Founded in 1979, over 500 exhibitions organized. Showcasing Kosovo's finest art and cultural heritage.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina Center</span>
+                            <span class="event-source">Source: Visit Kosovo</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=National+Gallery+of+Kosovo+Prishtina', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 8 -->
+                <article class="event-card" data-category="restaurant" onclick="window.open('https://www.google.com/search?q=Shpija+e+Vjeter+Restaurant+Prishtina+Kosovo+TripAdvisor', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category restaurant">Restaurants</span>
+                            <span class="event-time">Open Daily</span>
+                        </div>
+                        <h2 class="event-title">Shpija e Vjetër</h2>
+                        <p class="event-description">Unique restaurant with indoor trees and quirky decor. Known for incredible kofta casserole and roasted peppers.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina</span>
+                            <span class="event-source">Source: TripAdvisor</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Shpija+e+Vjeter+Restaurant+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 9 -->
+                <article class="event-card" data-category="outdoor" onclick="window.open('https://www.google.com/search?q=Mother+Teresa+Boulevard+Prishtina+Kosovo', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Daily</span>
+                        </div>
+                        <h2 class="event-title">Mother Teresa Boulevard</h2>
+                        <p class="event-description">Pristina's most iconic central promenade. Perfect for evening strolls with numerous outdoor cafes.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Downtown Prishtina</span>
+                            <span class="event-source">Source: City Guide</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Mother+Teresa+Boulevard+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 10 -->
+                <article class="event-card" data-category="outdoor" onclick="window.open('https://www.google.com/search?q=Pristina+Bazaar+Kosovo', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category outdoor">Outdoor Activities</span>
+                            <span class="event-time">Open Daily</span>
+                        </div>
+                        <h2 class="event-title">Pristina Bazaar</h2>
+                        <p class="event-description">Sprawling market through cobbled streets selling fruit, vegetables, electronics, clothes, and souvenirs.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Old Town, Prishtina</span>
+                            <span class="event-source">Source: Travel Guides</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Pristina+Bazaar+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 11 -->
+                <article class="event-card" data-category="bars" onclick="window.open('https://www.google.com/search?q=Dit+e+Nat+Cafe+Bar+Prishtina+Kosovo', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category bars">Bars & Nightlife</span>
+                            <span class="event-time">Open Now</span>
+                        </div>
+                        <h2 class="event-title">Dit' e Nat' Cafe & Bar</h2>
+                        <p class="event-description">Bookstore and cafe combo with live music, stand-up comedy and film screenings. Also features a rooftop bar.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Prishtina Center</span>
+                            <span class="event-source">Source: Happy Wanderess</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Dit+e+Nat+Cafe+Bar+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+
+                <!-- Event Card 12 -->
+                <article class="event-card" data-category="restaurant" onclick="window.open('https://www.google.com/search?q=Liburnia+Restaurant+Prishtina+Kosovo', '_blank')"><div class="event-badge venue-badge">📍 VENUE</div>
+                    <div class="event-image" style="background-image: url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=400');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category restaurant">Restaurants</span>
+                            <span class="event-time">Open Daily</span>
+                        </div>
+                        <h2 class="event-title">Liburnia Restaurant</h2>
+                        <p class="event-description">Ottoman-era house filled with vintage furniture, serving unique Kosovan dishes in a historic setting.</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 Old Town, Prishtina</span>
+                            <span class="event-source">Source: Where Goes Rose</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=Liburnia+Restaurant+Prishtina+Kosovo', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Dola. Discover Prishtina - Bars, Restaurants, Museums & More.</p>
+            <div style="margin-top: 15px;">
+                <button onclick="shareOnFacebook()" style="background: #1877f2; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; margin-right: 10px;">
+                    📘 Share on Facebook
+                </button>
+                <button onclick="shareOnTwitter()" style="background: #1da1f2; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600;">
+                    🐦 Share on Twitter
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ====================
+        // FACEBOOK EVENTS API
+        // ====================
+
+        // Facebook App Configuration (USER MUST UPDATE THESE)
+        const FB_CONFIG = {
+            appId: '1234567890', // Replace with your Facebook App ID
+            pageAccessToken: 'YOUR_PAGE_ACCESS_TOKEN', // Replace with your Page Access Token
+            pages: [
+                'kinoarmata',     // Kino Armata
+                // Add more Kosovo event pages here
+            ]
+        };
+
+        // Initialize Facebook SDK
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: FB_CONFIG.appId,
+                xfbml: true,
+                version: 'v18.0'
+            });
+        };
+
+        // Load Facebook SDK
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // Fetch Facebook Events
+        async function fetchFacebookEvents() {
+            if (!FB_CONFIG.pageAccessToken || FB_CONFIG.pageAccessToken === 'YOUR_PAGE_ACCESS_TOKEN') {
+                console.warn('⚠️ Facebook API not configured. Add your App ID and Page Access Token in FB_CONFIG.');
+                return [];
+            }
+
+            const allEvents = [];
+
+            for (const pageId of FB_CONFIG.pages) {
+                try {
+                    const response = await fetch(
+                        `https://graph.facebook.com/v18.0/${pageId}/events?access_token=${FB_CONFIG.pageAccessToken}&fields=name,description,start_time,place,cover&limit=20`
+                    );
+
+                    if (!response.ok) {
+                        console.error(`Failed to fetch events from page ${pageId}`);
+                        continue;
+                    }
+
+                    const data = await response.json();
+
+                    if (data.data && data.data.length > 0) {
+                        allEvents.push(...data.data.map(event => ({
+                            id: event.id,
+                            title: event.name,
+                            description: event.description || 'No description available',
+                            date: new Date(event.start_time).toLocaleDateString(),
+                            time: new Date(event.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                            location: event.place?.name || 'TBA',
+                            image: event.cover?.source || 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400',
+                            source: 'Facebook',
+                            category: 'concert', // Can be enhanced with categorization logic
+                            url: `https://facebook.com/events/${event.id}`,
+                            isLive: true
+                        })));
+                    }
+                } catch (error) {
+                    console.error(`Error fetching Facebook events from ${pageId}:`, error);
+                }
+            }
+
+            return allEvents;
+        }
+
+        // ====================
+        // EVENT AGGREGATION
+        // ====================
+
+        // Manually curated events (easy to update)
+        const MANUAL_EVENTS = [
+            // UPCOMING EVENTS
+            {
+                title: "Filma të shkurtë nga Gjilani: 'Sinkopa' & 'Dogme 666'",
+                titleEn: "Short Films from Gjilan: 'Sinkopa' & 'Dogme 666'",
+                description: "Shfaqje e filmave të shkurtë nga Gjilani. Dy filma origjinalë nga kineastë lokalë.",
+                descriptionEn: "Screening of short films from Gjilan. Two original films by local filmmakers.",
+                date: "Nov 19",
+                time: "7:00 PM",
+                location: "Kino ARMATA, Brigada e Kosovës, Prishtinë",
+                image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400",
+                category: "museum",
+                url: "https://www.facebook.com/kinoarmata/events",
+                source: "Kino ARMATA",
+                isLive: true
+            },
+            {
+                title: "Cotton Blues Festival 2025",
+                titleEn: "Cotton Blues Festival 2025",
+                description: "Festivali vjetor i bluzit në Prishtinë. Artistë vendorë dhe ndërkombëtarë të muzikës blues.",
+                descriptionEn: "Annual blues festival in Prishtina. Local and international blues artists performing live.",
+                date: "Nov 27",
+                time: "7:00 PM",
+                location: "Prishtinë",
+                image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=400",
+                category: "concert",
+                url: "https://www.bandsintown.com/c/pristina-kosovo",
+                source: "Bandsintown",
+                isLive: true
+            },
+            // PERMANENT VENUES (Always open)
+            {
+                title: "ZONE Club",
+                titleEn: "ZONE Club",
+                description: "Klubi më i madh i jetës së natës në Kosovë. Muzikë e ndryshme çdo natë, DJ të njohur, atmosferë e shkëlqyer.",
+                descriptionEn: "Kosovo's largest nightlife club. Diverse music every night, renowned DJs, excellent atmosphere.",
+                date: "Open nightly",
+                time: "9:00 PM - Late",
+                location: "ZONE Club, Prishtinë",
+                image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400",
+                category: "bars",
+                url: "https://www.facebook.com/zoneclubpr",
+                source: "Facebook",
+                isLive: false
+            },
+            {
+                title: "Tiffany Restaurant",
+                titleEn: "Tiffany Restaurant",
+                description: "Restorant tradicional shqiptar. I njohur për gatime shtëpiake, flija, dhe mish të përgatitur ngadalë. Vend ikonik në Prishtinë.",
+                descriptionEn: "Traditional Albanian restaurant. Famous for home cooking, flija, and slow-cooked meats. A Prishtina institution.",
+                date: "Open Daily",
+                time: "11:00 AM - 11:00 PM",
+                location: "Tiffany, Prishtinë",
+                image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=400",
+                category: "restaurant",
+                url: "https://www.google.com/search?q=Tiffany+Restaurant+Prishtina",
+                source: "Local Guides",
+                isLive: false
+            },
+            {
+                title: "Renaissance Restaurant",
+                titleEn: "Renaissance Restaurant",
+                description: "Restorant gourmet me gjellë tradicionale shqiptare. Ambient intim dhe elegant, perfekt për raste të veçanta.",
+                descriptionEn: "Gourmet restaurant with traditional Albanian cuisine. Intimate and elegant ambiance, perfect for special occasions.",
+                date: "Open Daily",
+                time: "12:00 PM - 11:00 PM",
+                location: "Renaissance, Prishtinë",
+                image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400",
+                category: "restaurant",
+                url: "https://www.tripadvisor.com/Restaurant_Review-g295385-d2354337-Reviews-Renaissance-Pristina.html",
+                source: "TripAdvisor",
+                isLive: false
+            },
+            {
+                title: "Dit' e Nat'",
+                titleEn: "Dit' e Nat'",
+                description: "Restorant me opsione vegjetariane dhe pjata mesdhetare. Ambient modern dhe i qetë në zemër të Prishtinës.",
+                descriptionEn: "Restaurant with vegetarian options and Mediterranean dishes. Modern and calm atmosphere in the heart of Prishtina.",
+                date: "Open Daily",
+                time: "8:00 AM - 11:00 PM",
+                location: "Dit' e Nat', Prishtinë",
+                image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400",
+                category: "restaurant",
+                url: "https://www.tripadvisor.com/Restaurant_Review-g295385-d2078079-Reviews-Dit_e_Nat-Pristina.html",
+                source: "TripAdvisor",
+                isLive: false
+            }
+            // Add more real events here as you find them!
+        ];
+
+        // Load all events from all sources
+        async function loadAllEvents() {
+            console.log('📡 Fetching events from all sources...');
+
+            // Fetch from all sources (don't clear the feed yet!)
+            const [facebookEvents] = await Promise.all([
+                fetchFacebookEvents()
+            ]);
+
+            // Combine all events
+            const allEvents = [
+                ...facebookEvents,
+                ...MANUAL_EVENTS
+            ];
+
+            console.log(`✅ Loaded ${allEvents.length} dynamic events`);
+
+            // Render events (this will prepend to existing static events)
+            if (allEvents.length > 0) {
+                renderDynamicEvents(allEvents);
+            } else {
+                console.log('ℹ️ No dynamic events found, keeping static events');
+                // Keep the static HTML events that are already in the page
+            }
+
+            // Cache events in localStorage
+            localStorage.setItem('dolaEvents', JSON.stringify(allEvents));
+            localStorage.setItem('dolaEventsTimestamp', Date.now());
+        }
+
+        // Render events dynamically
+        function renderDynamicEvents(events) {
+            const newsFeed = document.querySelector('.news-feed');
+
+            // Keep existing static events and prepend dynamic ones
+            const existingEvents = newsFeed.innerHTML;
+
+            const dynamicHTML = events.map(event => {
+                // Use language-specific title/description if available
+                const title = currentLang === 'sq' ? event.title : (event.titleEn || event.title);
+                const description = currentLang === 'sq' ? event.description : (event.descriptionEn || event.description);
+
+                return `
+                <article class="event-card ${event.isLive ? 'event-card-live' : ''}" data-category="${event.category}" onclick="window.open('${event.url}', '_blank')">
+                    <div class="event-badge ${event.isLive ? '' : 'venue-badge'}">${event.isLive ? '🎉 LIVE EVENT' : '📍 VENUE'}</div>
+                    <div class="event-image" style="background-image: url('${event.image}');"></div>
+                    <div class="event-content">
+                        <div class="event-header">
+                            <span class="event-category ${event.category}">${getCategoryName(event.category)}</span>
+                            <span class="event-time">${event.date}${event.time ? ', ' + event.time : ''}</span>
+                        </div>
+                        <h2 class="event-title" data-lang-sq="${event.title}" data-lang-en="${event.titleEn || event.title}">${title}</h2>
+                        <p class="event-description" data-lang-sq="${event.description}" data-lang-en="${event.descriptionEn || event.description}">${description}</p>
+                        <div class="event-footer">
+                            <span class="event-location">📍 ${event.location}</span>
+                            <span class="event-source">Source: ${event.source || 'Manual'}</span>
+                        </div>
+                        <button class="maps-btn" onclick="event.stopPropagation(); window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}', '_blank')">📍 View on Maps</button>
+                    </div>
+                </article>
+            `}).join('');
+
+            newsFeed.innerHTML = dynamicHTML + existingEvents;
+        }
+
+        // Helper function to get category display name
+        function getCategoryName(category) {
+            const categoryMap = {
+                'bars': 'Bars & Nightlife',
+                'museum': 'Museums & Culture',
+                'outdoor': 'Outdoor Activities',
+                'restaurant': 'Restaurants',
+                'concert': 'Concerts & Shows'
+            };
+            return categoryMap[category] || 'Events';
+        }
+
+        // Auto-refresh events every hour
+        setInterval(loadAllEvents, 60 * 60 * 1000);
+
+        // Language Translations
+        const translations = {
+            en: {
+                tagline: "Discover what's happening in Kosovo",
+                searchPlaceholder: "Search by city, event name, location...",
+                resetFilters: "Reset Filters",
+                catAll: "All Events",
+                catBars: "Bars & Nightlife",
+                catMuseums: "Museums & Culture",
+                catOutdoor: "Outdoor Activities",
+                catRestaurants: "Restaurants",
+                catConcerts: "Concerts & Shows",
+                liveEvent: "🎉 LIVE EVENT",
+                venue: "📍 VENUE",
+                viewOnMaps: "📍 View on Maps",
+                source: "Source",
+                localEvents: "Local Events",
+                resultsFound: "results found",
+                result: "result",
+                disclaimerNotice: "Events are not confirmed. There may be errors or expired events!"
+            },
+            sq: {
+                tagline: "Zbulo çka po ndodh në Kosovë",
+                searchPlaceholder: "Kërko sipas qytetit, emrit të eventit, vendndodhjes...",
+                resetFilters: "Rivendos Filtrat",
+                catAll: "Të Gjitha Eventet",
+                catBars: "Bare & Jetë Nate",
+                catMuseums: "Muzeje & Kulturë",
+                catOutdoor: "Aktivitete Jashtë",
+                catRestaurants: "Restorante",
+                catConcerts: "Koncerte & Shfaqje",
+                liveEvent: "🎉 EVENT I DREJTPËRDREJTË",
+                venue: "📍 VEND",
+                viewOnMaps: "📍 Shiko në Hartë",
+                source: "Burimi",
+                localEvents: "Eventet Lokale",
+                resultsFound: "rezultate gjetur",
+                result: "rezultat",
+                disclaimerNotice: "Eventet nuk janë të konfirmuara. Mund të ketë gabime ose evente të skaduara!"
+            }
+        };
+
+        // Current language (default: Albanian)
+        let currentLang = localStorage.getItem('dolaLang') || 'sq';
+
+        // Function to switch language
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('dolaLang', lang);
+
+            // Update all elements with data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            // Update language toggle button
+            const langToggle = document.getElementById('langToggle');
+            if (lang === 'en') {
+                langToggle.textContent = '🇦🇱 SQ';
+            } else {
+                langToggle.textContent = '🇬🇧 EN';
+            }
+
+            // Update event badges
+            document.querySelectorAll('.event-badge').forEach(badge => {
+                if (badge.classList.contains('venue-badge')) {
+                    badge.textContent = translations[lang].venue;
+                } else {
+                    badge.textContent = translations[lang].liveEvent;
+                }
+            });
+
+            // Update maps buttons
+            document.querySelectorAll('.maps-btn').forEach(btn => {
+                const currentText = btn.textContent;
+                if (currentText.includes('View on Maps') || currentText.includes('Shiko në Hartë')) {
+                    btn.textContent = translations[lang].viewOnMaps;
+                }
+            });
+
+            // Update source text
+            document.querySelectorAll('.event-source').forEach(source => {
+                const currentText = source.textContent;
+                if (currentText.includes('Source:') || currentText.includes('Burimi:')) {
+                    source.textContent = `${translations[lang].source}: ${translations[lang].localEvents}`;
+                }
+            });
+
+            // Update event titles and descriptions
+            document.querySelectorAll('[data-lang-en][data-lang-sq]').forEach(element => {
+                const text = lang === 'en' ? element.getAttribute('data-lang-en') : element.getAttribute('data-lang-sq');
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+        }
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load events from all sources
+            loadAllEvents();
+
+            // Initialize language
+            switchLanguage(currentLang);
+
+            // Add language toggle button click handler
+            const langToggle = document.getElementById('langToggle');
+            langToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'sq' : 'en';
+                switchLanguage(newLang);
+            });
+        });
+
+        // Social Sharing Functions
+        function shareOnFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        function shareOnTwitter() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out Dola - Discover events across Kosovo! 🇽🇰');
+            const shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        // Category filtering functionality
+        const categoryButtons = document.querySelectorAll('.category-btn');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                // Get the category key from data attribute
+                const selectedCategory = button.getAttribute('data-category-key');
+
+                // Get all event cards (including dynamically added ones)
+                const eventCards = document.querySelectorAll('.event-card');
+
+                // Show all cards if "all" is selected
+                if (selectedCategory === 'all') {
+                    eventCards.forEach(card => {
+                        card.style.display = 'block';
+                    });
+                    return;
+                }
+
+                // Filter cards based on category
+                eventCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+
+                    if (cardCategory === selectedCategory) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchBar = document.querySelector('.search-bar');
+        const searchResultsSpan = document.querySelector('.search-results');
+
+        searchBar.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+
+            // Get all event cards (including dynamically added ones)
+            const allEventCards = document.querySelectorAll('.event-card');
+
+            if (searchTerm === '') {
+                // If search is empty, show all cards
+                allEventCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                searchResultsSpan.style.display = 'none';
+                return;
+            }
+
+            let visibleCount = 0;
+
+            allEventCards.forEach(card => {
+                const title = card.querySelector('.event-title')?.textContent.toLowerCase() || '';
+                const description = card.querySelector('.event-description')?.textContent.toLowerCase() || '';
+                const location = card.querySelector('.event-location')?.textContent.toLowerCase() || '';
+                const category = card.querySelector('.event-category')?.textContent.toLowerCase() || '';
+
+                // Search in all text content
+                const searchableText = title + ' ' + description + ' ' + location + ' ' + category;
+
+                if (searchableText.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show count of results
+            const resultText = visibleCount === 1 ? translations[currentLang].result : translations[currentLang].resultsFound;
+            searchResultsSpan.textContent = `${visibleCount} ${resultText}`;
+            searchResultsSpan.style.display = 'inline';
+        });
+
+        // Clear search and show all when search is empty
+        searchBar.addEventListener('keyup', (e) => {
+            if (e.target.value === '') {
+                const allEventCards = document.querySelectorAll('.event-card');
+                allEventCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+        });
+
+        // Filter button - Reset all filters and focus search
+        const filterBtn = document.querySelector('.filter-btn');
+
+        if (filterBtn) {
+            filterBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Reset category filter to "All Events"
+                document.querySelector('.category-btn.active')?.classList.remove('active');
+                document.querySelector('.category-btn')?.classList.add('active');
+
+                // Show all cards (get fresh list in case of dynamic updates)
+                const allEventCards = document.querySelectorAll('.event-card');
+                allEventCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+
+                // Clear and focus search bar
+                searchBar.value = '';
+                searchResultsSpan.style.display = 'none';
+                searchBar.focus();
+
+                // Scroll to search bar
+                searchBar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+
+        // Auto-refresh functionality - Refresh every hour
+        // This will reload the page to fetch latest events
+        const REFRESH_INTERVAL = 60 * 60 * 1000; // 1 hour in milliseconds
+
+        // Set up auto-refresh
+        setInterval(() => {
+            console.log('Auto-refreshing to fetch latest events...');
+            location.reload();
+        }, REFRESH_INTERVAL);
+
+        // Show last update time
+        const updateTimeElement = document.createElement('div');
+        updateTimeElement.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: rgba(255,255,255,0.9); padding: 10px 15px; border-radius: 20px; font-size: 0.8rem; color: #666; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;';
+        updateTimeElement.innerHTML = `Last updated: ${new Date().toLocaleTimeString()}<br><small>Auto-refresh in 60 min</small>`;
+        document.body.appendChild(updateTimeElement);
+
+        // Update the countdown timer
+        let minutesLeft = 60;
+        setInterval(() => {
+            minutesLeft--;
+            if (minutesLeft <= 0) minutesLeft = 60;
+            updateTimeElement.innerHTML = `Last updated: ${new Date().toLocaleTimeString()}<br><small>Auto-refresh in ${minutesLeft} min</small>`;
+        }, 60000); // Update every minute
+
+        /*
+         * NOTE: For production, you would replace the location.reload() with:
+         * - API calls to fetch fresh event data from:
+         *   - Facebook Graph API
+         *   - Eventbrite API
+         *   - Bandsintown API
+         *   - Local Prishtina event sources
+         * - Update the DOM dynamically without full page reload
+         * - Example:
+         *
+         * async function fetchLatestEvents() {
+         *     const response = await fetch('/api/events?city=prishtina');
+         *     const events = await response.json();
+         *     updateEventCards(events);
+         * }
+         */
+    </script>
+</body>
+</html>
