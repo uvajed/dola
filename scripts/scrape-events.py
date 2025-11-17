@@ -190,6 +190,114 @@ def scrape_eventbrite():
     return all_events
 
 
+def scrape_google_events():
+    """
+    Search Google for Kosovo events using Custom Search API
+    Requires GOOGLE_API_KEY and GOOGLE_SEARCH_ENGINE_ID in environment
+
+    To set up:
+    1. Get API key: https://developers.google.com/custom-search/v1/overview
+    2. Create Search Engine: https://programmablesearchengine.google.com/
+    3. Add to GitHub Secrets: GOOGLE_API_KEY, GOOGLE_SEARCH_ENGINE_ID
+    """
+    events = []
+
+    api_key = os.environ.get('GOOGLE_API_KEY', '')
+    search_engine_id = os.environ.get('GOOGLE_SEARCH_ENGINE_ID', '')
+
+    if not api_key or not search_engine_id:
+        print("⚠️  Google Custom Search not configured")
+        print("   Add GOOGLE_API_KEY and GOOGLE_SEARCH_ENGINE_ID to GitHub Secrets")
+        return events
+
+    print("🔍 Searching Google for Kosovo events...")
+
+    # Search queries for Kosovo events
+    search_queries = [
+        "events in Prishtina Kosovo this week",
+        "concerts Kosovo November 2025",
+        "Prizren events",
+        "Kosovo nightlife events"
+    ]
+
+    for query in search_queries:
+        try:
+            url = "https://www.googleapis.com/customsearch/v1"
+            params = {
+                'key': api_key,
+                'cx': search_engine_id,
+                'q': query,
+                'num': 3  # Get 3 results per query
+            }
+
+            response = requests.get(url, params=params, timeout=10)
+
+            if response.status_code == 200:
+                data = response.json()
+
+                if 'items' in data:
+                    for item in data['items']:
+                        title = item.get('title', 'Event in Kosovo')
+                        snippet = item.get('snippet', 'Check Google for details')
+                        link = item.get('link', 'https://google.com')
+
+                        # Avoid duplicates
+                        if not any(e['title'] == title for e in events):
+                            event = {
+                                'title': title[:100],
+                                'titleEn': title[:100],
+                                'description': snippet[:200],
+                                'descriptionEn': snippet[:200],
+                                'date': 'Coming Soon',
+                                'time': 'Check Website',
+                                'location': 'Kosovo',
+                                'image': 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400',
+                                'category': 'outdoor',
+                                'url': link,
+                                'source': 'Google Search',
+                                'isLive': True
+                            }
+                            events.append(event)
+                            print(f"  ✅ Found: {title[:50]}...")
+            else:
+                print(f"  ❌ Error: {response.status_code}")
+
+            import time
+            time.sleep(0.5)  # Respect API rate limits
+
+        except Exception as e:
+            print(f"  ⚠️ Error searching Google: {e}")
+
+    return events
+
+
+def scrape_instagram_hashtags():
+    """
+    Search Instagram hashtags for Kosovo events
+
+    WARNING: Instagram actively blocks scraping and has no public API.
+    This method is:
+    - Against Instagram's Terms of Service
+    - Unreliable (Instagram blocks bots)
+    - May not work at all
+
+    Better alternatives:
+    1. Manually check Instagram and add events to MANUAL_EVENTS
+    2. Partner with venues to get event info directly
+    3. Use Facebook Graph API (same company, better API support)
+    """
+    events = []
+
+    print("⚠️  Instagram scraping is unreliable and against ToS")
+    print("   Recommended: Manually add Instagram events to MANUAL_EVENTS")
+
+    # Instagram doesn't provide a public API for this
+    # Web scraping Instagram is blocked and against ToS
+    # We'll skip this to avoid issues
+
+    return events
+
+
 def scrape_public_calendar_feeds():
     """
     Example: Scrape from public calendar feeds or RSS feeds
@@ -251,18 +359,24 @@ def scrape_events():
     facebook_events = scrape_facebook_events()
     all_events.extend(facebook_events)
 
-    # Scrape from Eventbrite
-    eventbrite_events = scrape_eventbrite()
-    all_events.extend(eventbrite_events)
+    # Scrape from Eventbrite (disabled - not accurate)
+    # eventbrite_events = scrape_eventbrite()
+    # all_events.extend(eventbrite_events)
+    eventbrite_events = []
 
-    # Add more sources here
-    # rss_events = scrape_public_calendar_feeds()
-    # all_events.extend(rss_events)
+    # Scrape from Google Custom Search (if configured)
+    google_events = scrape_google_events()
+    all_events.extend(google_events)
+
+    # Instagram scraping (not recommended - see function for details)
+    instagram_events = scrape_instagram_hashtags()
+    all_events.extend(instagram_events)
 
     print("=" * 50)
     print(f"✅ Found {len(all_events)} total new events")
     print(f"   - Facebook: {len(facebook_events)} events")
-    print(f"   - Eventbrite: {len(eventbrite_events)} events")
+    print(f"   - Google Search: {len(google_events)} events")
+    print(f"   - Instagram: {len(instagram_events)} events")
 
     return all_events
 

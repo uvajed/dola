@@ -24,6 +24,11 @@ jobs:
           pip install beautifulsoup4 requests lxml
 
       - name: Run event scraper
+        env:
+          FB_APP_ID: ${{ secrets.FB_APP_ID }}
+          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_SEARCH_ENGINE_ID: ${{ secrets.GOOGLE_SEARCH_ENGINE_ID }}
         run: |
           python scripts/scrape-events.py
 
