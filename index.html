@@ -932,8 +932,8 @@
         function renderDynamicEvents(events) {
             const newsFeed = document.querySelector('.news-feed');
 
-            // Keep existing static events and prepend dynamic ones
-            const existingEvents = newsFeed.innerHTML;
+            // Clear existing events so we can render in correct order
+            newsFeed.innerHTML = '';
 
             const dynamicHTML = events.map(event => {
                 // Use language-specific title/description if available
@@ -960,7 +960,7 @@
                 </article>
             `}).join('');
 
-            newsFeed.innerHTML = dynamicHTML + existingEvents;
+            newsFeed.innerHTML = dynamicHTML;
         }
 
         // Helper function to get category display name
