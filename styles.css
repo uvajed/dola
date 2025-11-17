@@ -453,7 +453,7 @@ body {
 .add-event-btn {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    left: 30px;
     padding: 16px 28px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -679,7 +679,7 @@ body {
 
     .add-event-btn {
         bottom: 20px;
-        right: 20px;
+        left: 20px;
         padding: 14px 24px;
         font-size: 1rem;
     }
