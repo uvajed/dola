@@ -1271,6 +1271,13 @@
             const savedBtn = document.getElementById('savedEventsBtn');
 
             if (showingSavedOnly) {
+                // Reset category filters when showing saved events
+                const categoryButtons = document.querySelectorAll('.category-btn:not(#savedEventsBtn)');
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                // Make "All Events" active
+                const allEventsBtn = document.querySelector('[data-category-key="all"]');
+                if (allEventsBtn) allEventsBtn.classList.add('active');
+
                 savedBtn.classList.add('active');
                 filterSavedEvents();
             } else {
@@ -1535,10 +1542,15 @@
         }
 
         // Category filtering functionality
-        const categoryButtons = document.querySelectorAll('.category-btn');
+        const categoryButtons = document.querySelectorAll('.category-btn:not(#savedEventsBtn)');
 
         categoryButtons.forEach(button => {
             button.addEventListener('click', () => {
+                // Reset saved events filter when clicking category
+                showingSavedOnly = false;
+                const savedBtn = document.getElementById('savedEventsBtn');
+                if (savedBtn) savedBtn.classList.remove('active');
+
                 // Remove active class from all buttons
                 categoryButtons.forEach(btn => btn.classList.remove('active'));
 
