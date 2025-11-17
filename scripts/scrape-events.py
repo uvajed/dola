@@ -120,53 +120,74 @@ def scrape_facebook_events():
 
 def scrape_eventbrite():
     """
-    Scrape events from Eventbrite Kosovo
+    Scrape events from Eventbrite - ALL Kosovo cities!
     Public data, no API key needed
     """
-    events = []
+    all_events = []
 
-    try:
-        print("🔍 Scraping Eventbrite Kosovo...")
-        url = "https://www.eventbrite.com/d/kosovo--pristina/events/"
-        response = requests.get(url, headers=HEADERS, timeout=10)
+    # Major Kosovo cities to search
+    KOSOVO_CITIES = [
+        ('pristina', 'Prishtina'),
+        ('prizren', 'Prizren'),
+        ('peja', 'Peja'),
+        ('gjakova', 'Gjakova'),
+        ('gjilan', 'Gjilan'),
+        ('ferizaj', 'Ferizaj'),
+        ('mitrovica', 'Mitrovica'),
+        ('kosovo', 'Kosovo')  # General Kosovo events
+    ]
 
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.text, 'html.parser')
+    for city_slug, city_name in KOSOVO_CITIES:
+        try:
+            print(f"🔍 Searching Eventbrite: {city_name}...")
+            url = f"https://www.eventbrite.com/d/kosovo--{city_slug}/events/"
+            response = requests.get(url, headers=HEADERS, timeout=10)
 
-            # Eventbrite uses structured data - look for event cards
-            event_items = soup.find_all('div', class_='discover-search-desktop-card')[:5]  # Get first 5
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.text, 'html.parser')
 
-            for item in event_items:
-                try:
-                    # Extract event details
-                    title_elem = item.find('h2') or item.find('h3')
-                    title = title_elem.get_text(strip=True) if title_elem else None
+                # Eventbrite uses structured data - look for event cards
+                event_items = soup.find_all('div', class_='discover-search-desktop-card')[:3]  # Get first 3 per city
 
-                    if title:
-                        event = {
-                            'title': title,
-                            'titleEn': title,
-                            'description': 'Event in Kosovo. Check Eventbrite for full details.',
-                            'descriptionEn': 'Event in Kosovo. Check Eventbrite for full details.',
-                            'date': 'Coming Soon',
-                            'time': 'TBA',
-                            'location': 'Prishtina, Kosovo',
-                            'image': 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400',
-                            'category': 'outdoor',
-                            'url': 'https://www.eventbrite.com/d/kosovo--pristina/events/',
-                            'source': 'Eventbrite',
-                            'isLive': True
-                        }
-                        events.append(event)
-                        print(f"  ✅ Found: {title}")
-                except Exception as e:
-                    print(f"  ⚠️ Error parsing event: {e}")
-                    continue
+                for item in event_items:
+                    try:
+                        # Extract event details
+                        title_elem = item.find('h2') or item.find('h3')
+                        title = title_elem.get_text(strip=True) if title_elem else None
 
-    except Exception as e:
-        print(f"❌ Error scraping Eventbrite: {e}")
+                        if title:
+                            # Avoid duplicates
+                            if not any(e['title'] == title for e in all_events):
+                                event = {
+                                    'title': title,
+                                    'titleEn': title,
+                                    'description': f'Event in {city_name}, Kosovo. Check Eventbrite for full details.',
+                                    'descriptionEn': f'Event in {city_name}, Kosovo. Check Eventbrite for full details.',
+                                    'date': 'Coming Soon',
+                                    'time': 'TBA',
+                                    'location': f'{city_name}, Kosovo',
+                                    'image': 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400',
+                                    'category': 'outdoor',
+                                    'url': url,
+                                    'source': f'Eventbrite ({city_name})',
+                                    'isLive': True
+                                }
+                                all_events.append(event)
+                                print(f"  ✅ {city_name}: {title[:50]}...")
+                    except Exception as e:
+                        print(f"  ⚠️ Error parsing event: {e}")
+                        continue
+            else:
+                print(f"  ℹ️  No events found for {city_name}")
 
-    return events
+            # Be polite - small delay between requests
+            import time
+            time.sleep(0.5)
+
+        except Exception as e:
+            print(f"  ❌ Error with {city_name}: {e}")
+
+    return all_events
 
 
 def scrape_public_calendar_feeds():
