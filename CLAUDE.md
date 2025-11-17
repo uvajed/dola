@@ -94,25 +94,117 @@ Simply cut and paste the venue object to a new position in the `MANUAL_EVENTS` a
 
 ## Adding New Events
 
-1. Add new event object to `MANUAL_EVENTS` array in `index.html`
-2. Include all required properties:
-   - `title`, `titleEn` (Albanian and English titles)
-   - `description`, `descriptionEn`
-   - `date`, `time`, `location`
-   - `image` (Unsplash or event image URL)
-   - `category` (`bars`, `museum`, `outdoor`, `restaurant`, or `concert`)
-   - `url` (event website or Google search)
-   - `source` (event source name)
-   - `isLive` (`true` for time-specific events, `false` for permanent venues)
-3. Placement:
-   - For live events: Add anywhere in the UPCOMING EVENTS section (they'll auto-sort by date)
-   - For new venues: Add at the TOP of the PERMANENT VENUES section to show them first
-   - For older venues: Add at the bottom of the PERMANENT VENUES section
+**IMPORTANT**: Events must be added to the `MANUAL_EVENTS` JavaScript array, **NOT** as static HTML in the feed. Static HTML events will not be properly sorted or displayed.
+
+### How to Add Events:
+
+1. **Locate the `MANUAL_EVENTS` array** in `index.html` (search for `const MANUAL_EVENTS`)
+
+2. **Add new event object** with all required properties:
+   ```javascript
+   {
+       title: "Event Name in Albanian",
+       titleEn: "Event Name in English",
+       description: "Albanian description",
+       descriptionEn: "English description",
+       date: "Nov 25",  // or "Nov 25-30" for multi-day
+       time: "7:00 PM",  // Optional, can be empty string ""
+       location: "Venue Name, City",
+       image: "https://images.unsplash.com/...",
+       category: "concert",  // bars, museum, outdoor, restaurant, or concert
+       url: "https://event-website.com",
+       source: "Event Organizer Name",
+       isLive: true  // true for time-specific events, false for permanent venues
+   }
+   ```
+
+3. **Placement**:
+   - For live events: Add anywhere in UPCOMING EVENTS section (auto-sorted by date)
+   - For new venues: Add in PERMANENT VENUES section (order matters!)
+
+### Examples:
+
+**Live Event (Concert):**
+```javascript
+{
+    title: "Festivali i Xhazit të Prishtinës 2025",
+    titleEn: "Prishtina Jazz Festival 2025",
+    description: "Festivali ndërkombëtar vjetor i xhazit...",
+    descriptionEn: "Annual international jazz festival...",
+    date: "Nov 14-19",
+    time: "",
+    location: "ODA Theatre, Prishtinë",
+    image: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?w=400",
+    category: "concert",
+    url: "https://www.instagram.com/prishtinajazzfest/",
+    source: "prishtinajazzfest",
+    isLive: true
+}
+```
+
+**Permanent Venue (Restaurant):**
+```javascript
+{
+    title: "Pishat Restaurant",
+    titleEn: "Pishat Restaurant",
+    description: "Një nga restoratet më të njohura në Prishtinë...",
+    descriptionEn: "One of the most popular restaurants in Pristina...",
+    date: "Check Schedule",
+    time: "Open Daily",
+    location: "Prishtina",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400",
+    category: "restaurant",
+    url: "https://www.google.com/search?q=Pishat+Restaurant+Prishtina",
+    source: "Local Reviews",
+    isLive: false
+}
+```
+
+## User Features
+
+### Favorites System
+
+Users can save events they're interested in:
+- Click the heart icon on any event card to save/unsave
+- Saved events are stored in `localStorage` (client-side only)
+- Click "Saved Events" button to filter and view only saved events
+- Heart icon changes color when event is saved (red vs. outline)
+- Saved count shown in "Saved Events" button
+
+**Technical Details:**
+- `localStorage.getItem('dolaFavorites')` - Array of saved event IDs
+- Each event card has a unique ID generated from title + location
+- Heart icons update dynamically when toggled
+
+### User-Submitted Events
+
+Users can add their own events via the "Add Event" button:
+- Green floating button in bottom-left corner
+- Opens modal form with bilingual fields (Albanian/English)
+- Image suggestions based on selected category
+- Events stored in `localStorage` (client-side only)
+- User events display with orange "USER EVENT" badge
+- Can be deleted by clicking X button on the card
+
+**Technical Details:**
+- `localStorage.getItem('userSubmittedEvents')` - Array of user events
+- User events loaded before other events on page load
+- Same structure as MANUAL_EVENTS but stored in localStorage
+
+### Bilingual Support
+
+All UI elements support Albanian (Shqip) and English:
+- Language toggle button in header (🇦🇱 SQ / 🇬🇧 EN)
+- Uses `data-lang-sq` and `data-lang-en` attributes
+- Event titles and descriptions switch dynamically
+- Current language stored in `localStorage`
 
 ## CSS Architecture
 
 - Gradient theme: Purple (`#667eea` to `#764ba2`)
-- Live event badge: Pink gradient with pulse animation
-- Venue badge: Green gradient, no animation
+- Live event badge: Soft pink gradient with gentle pulse animation
+- Venue badge: Soft green gradient, no animation
+- User event badge: Orange gradient
 - Responsive breakpoints: 768px, 480px
 - All event cards use CSS Grid layout (auto-fill, minmax(350px, 1fr))
+- Softer colors and animations (updated from harsh original design)
