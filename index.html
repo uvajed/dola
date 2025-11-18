@@ -1523,6 +1523,13 @@
                 return new Date('2099-12-31').getTime(); // Put at end
             }
 
+            // Handle DD.MM.YYYY format (e.g., "21.11.2025")
+            if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(dateStr)) {
+                const [day, month, year] = dateStr.split('.');
+                const parsed = new Date(year, parseInt(month) - 1, day);
+                return parsed.getTime();
+            }
+
             // Handle date ranges like "Nov 22-27" or "Dec 6-30"
             if (dateStr.includes('-') && !dateStr.includes('2025')) {
                 const parts = dateStr.split('-')[0].trim(); // Take first date
@@ -1543,6 +1550,11 @@
         // Helper function to check if a date string is an actual date (not placeholder text)
         function hasActualDate(dateString) {
             if (!dateString) return false;
+
+            // Check for DD.MM.YYYY format (e.g., "21.11.2025")
+            if (/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(dateString)) {
+                return true;
+            }
 
             // List of month names/abbreviations to look for
             const monthPatterns = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
@@ -1582,9 +1594,12 @@
 
             console.log(`📅 Filtered ${events.length} events down to ${eventsWithDates.length} with actual dates`);
 
-            // Display events in MANUAL_EVENTS array order
-            // This allows newly added items to appear first
-            const sortedEvents = eventsWithDates;
+            // Sort events by date from nearest to farthest
+            const sortedEvents = eventsWithDates.sort((a, b) => {
+                return parseDateForSorting(a.date) - parseDateForSorting(b.date);
+            });
+
+            console.log(`📅 Sorted ${sortedEvents.length} events by date (nearest first)`);
 
             const dynamicHTML = sortedEvents.map(event => {
                 // Use language-specific title/description if available
