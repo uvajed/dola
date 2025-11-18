@@ -1547,19 +1547,9 @@
             // Clear existing events so we can render in correct order
             newsFeed.innerHTML = '';
 
-            // Automatic sorting:
-            // 1. Separate live events and venues
-            const liveEvents = events.filter(e => e.isLive);
-            const venues = events.filter(e => !e.isLive);
-
-            // 2. Sort live events by date (soonest first)
-            liveEvents.sort((a, b) => parseDateForSorting(a.date) - parseDateForSorting(b.date));
-
-            // 3. Venues maintain array order (first in MANUAL_EVENTS = first displayed)
-            // No sorting needed - they're already in the order you added them
-
-            // 4. Combine: live events first, then venues
-            const sortedEvents = [...liveEvents, ...venues];
+            // Display events in MANUAL_EVENTS array order
+            // This allows newly added items to appear first
+            const sortedEvents = events;
 
             const dynamicHTML = sortedEvents.map(event => {
                 // Use language-specific title/description if available
