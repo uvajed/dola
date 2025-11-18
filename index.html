@@ -1540,6 +1540,36 @@
             return parsed.getTime();
         }
 
+        // Helper function to check if a date string is an actual date (not placeholder text)
+        function hasActualDate(dateString) {
+            if (!dateString) return false;
+
+            // List of month names/abbreviations to look for
+            const monthPatterns = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+            const lowerDate = dateString.toLowerCase();
+
+            // Check if date contains a month name
+            const hasMonth = monthPatterns.some(month => lowerDate.includes(month));
+
+            // Check if date contains numbers (likely a day/year)
+            const hasNumber = /\d/.test(dateString);
+
+            // Placeholder phrases that indicate it's NOT a real date
+            const placeholderPhrases = [
+                'check schedule',
+                'coming soon',
+                'this weekend',
+                'tba',
+                'to be announced'
+            ];
+            const isPlaceholder = placeholderPhrases.some(phrase => lowerDate.includes(phrase));
+
+            // It's a real date if it has a month/number, OR if it's a valid schedule like "open daily"
+            const isValidSchedule = lowerDate.includes('open') || lowerDate.includes('daily') || lowerDate.includes('evenings');
+
+            return ((hasMonth || hasNumber) && !isPlaceholder) || isValidSchedule;
+        }
+
         // Render events dynamically
         function renderDynamicEvents(events) {
             const newsFeed = document.querySelector('.news-feed');
@@ -1547,9 +1577,14 @@
             // Clear existing events so we can render in correct order
             newsFeed.innerHTML = '';
 
+            // Filter to only show events with actual dates
+            const eventsWithDates = events.filter(event => hasActualDate(event.date));
+
+            console.log(`📅 Filtered ${events.length} events down to ${eventsWithDates.length} with actual dates`);
+
             // Display events in MANUAL_EVENTS array order
             // This allows newly added items to appear first
-            const sortedEvents = events;
+            const sortedEvents = eventsWithDates;
 
             const dynamicHTML = sortedEvents.map(event => {
                 // Use language-specific title/description if available
