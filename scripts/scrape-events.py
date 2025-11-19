@@ -266,37 +266,53 @@ def scrape_google_events():
     current_year = datetime.now().year
 
     search_queries = [
-        # GENERAL KOSOVO EVENTS (English) - Most effective queries
-        f"events in Kosovo {current_month}",
-        f"things to do in Kosovo this weekend",
-        "Kosovo event calendar",
+        # TIME-SPECIFIC EVENT SEARCHES
+        f"Kosovo events {current_month}",
+        f"Prishtina events December {current_year}",
+        "Kosovo nightlife this weekend",
+        "concerts Prishtina tonight",
+        f"Prizren festival {current_year}",
 
-        # CITY-SPECIFIC EVENTS (Focus on Prishtina - most events)
-        f"events in Prishtina Kosovo {current_month}",
-        "Prishtina concerts nightlife",
-        f"Prizren events {current_month}",
-        "Prizren DokuFest",
+        # VENUE-SPECIFIC (Most likely to have events)
+        "Zone Club Prishtina events",
+        "Kino Armata Prishtina schedule",
+        "ODA Theatre Prishtina program",
+        "Duplex Club Prishtina",
+        "Dit' e Nat' Prishtina events",
+        "Hamam Jazz Bar Prishtina",
+        "Termokiss Prishtina events",
 
-        # CATEGORY-SPECIFIC (Most popular)
-        f"Kosovo concerts festivals {current_month}",
-        "Kosovo cultural events",
-        "Kosovo nightlife parties",
+        # EVENT TYPE + LOCATION
+        f"live music Prishtina {current_month}",
+        "DJ night Prishtina",
+        f"art exhibition Pristina {current_year}",
+        "film screening Kosovo",
+        "food festival Prizren",
+        f"Christmas market Prishtina {current_year}",
 
-        # VENUE-SPECIFIC (Major venues only)
-        "Kino ARMATA events",
-        "ODA Theatre Kosovo",
+        # SOCIAL MEDIA & EVENT PLATFORMS
+        "facebook events Prishtina Kosovo",
+        "eventbrite Kosovo",
+        f"Kosovo nightlife {current_month}",
 
-        # ALBANIAN LANGUAGE SEARCHES (Most targeted)
-        "ngjarje në Prishtinë",
-        f"eventet në Kosovë {current_month}",
+        # ALBANIAN LANGUAGE (More Local Results)
+        f"koncert Prishtinë {current_year}",
+        "ngjarje Prishtinë sonte",
+        f"festa Kosovë Nëntor {current_year}",
+        "muzikë live Prishtinë",
+        "ekspozitë Prishtinë",
 
-        # EVENT AGGREGATORS
-        "Visit Kosovo events"
+        # SPECIFIC EVENT ORGANIZERS
+        f"Sunny Hill Festival {current_year}",
+        f"DokuFest {current_year} dates",
+        f"Prishtina Film Festival {current_year}",
+        f"Anibar Festival {current_year}",
+        "Kosovo Wine Festival"
     ]
 
     # Limit queries to stay within Google's free tier (100 searches/day)
-    # With 16 queries × 2 results = 32 API calls (well under 100/day limit)
-    MAX_QUERIES = 16  # Conservative limit to avoid rate limiting
+    # With 33 queries × 2 results = 66 API calls (well under 100/day limit)
+    MAX_QUERIES = 33  # Increased from 16 for better coverage
     search_queries = search_queries[:MAX_QUERIES]
 
     print(f"   Running {len(search_queries)} searches (max {MAX_QUERIES*2} results)")
