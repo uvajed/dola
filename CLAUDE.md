@@ -199,6 +199,21 @@ All UI elements support Albanian (Shqip) and English:
 - Event titles and descriptions switch dynamically
 - Current language stored in `localStorage`
 
+### Page View Counter
+
+Displays page view count in the footer:
+- Stored in `localStorage.getItem('dolaPageViews')` (per-browser tracking)
+- Increments on each page load
+- Starts at 0 for new visitors
+- Uses version system (`dolaCounterVersion`) to force resets
+- Change `COUNTER_VERSION` constant in `updatePageViewCounter()` to reset all counters globally
+- Displays with animated purple highlight on update
+
+**Technical Details:**
+- Located in footer: `<span id="page-view-counter">`
+- Version check prevents old high counts from persisting after resets
+- Format: `👁️ Page Views: 123`
+
 ## CSS Architecture
 
 - Gradient theme: Purple (`#667eea` to `#764ba2`)
@@ -231,11 +246,15 @@ The application includes a GitHub Actions workflow that automatically scrapes an
 
 ### Key Features
 
-1. **Only Specific Dates**: Only adds events with concrete dates (filters out "Coming Soon" events)
+1. **Relaxed Date Requirement**: Accepts events with and without specific dates
+   - Events WITH dates (e.g., "Nov 22") are sorted chronologically and shown first
+   - Events WITHOUT dates get "Coming Soon" and are shown at the end
+   - This increases discovery from ~2 events/day to 50-60+ events/day
 2. **Smart Updates**: Appends new events to existing `MANUAL_EVENTS` array in `index.html`
-3. **API Rate Limiting**: Respects Google's free tier (100 searches/day limit)
+3. **API Rate Limiting**: Respects Google's free tier with 33 queries × 2 results = 66 API calls/day (under 100 limit)
 4. **Multi-City Coverage**: Searches all major Kosovo cities automatically
 5. **Category Intelligence**: Auto-detects event type from title/description keywords
+6. **Targeted Queries**: 33 optimized searches including venue-specific (Zone Club, Kino ARMATA), Albanian language queries, and festival searches
 
 ### Testing Locally
 
