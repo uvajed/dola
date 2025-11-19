@@ -727,7 +727,7 @@
         <div class="container">
             <p>&copy; 2025 Dola. Discover Prishtina - Bars, Restaurants, Museums & More.</p>
             <p style="margin-top: 10px; opacity: 0.7; font-size: 14px;">
-                👁️ Page Views: <span id="page-view-counter" style="font-weight: 600;">834</span>
+                👁️ Page Views: <span id="page-view-counter" style="font-weight: 600;">0</span>
             </p>
             <div style="margin-top: 15px;">
                 <button onclick="shareOnFacebook()" style="background: #1877f2; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; margin-right: 10px;">
@@ -3061,12 +3061,12 @@
         function updatePageViewCounter() {
             const counterElement = document.getElementById('page-view-counter');
 
-            // Get current count from localStorage, or start at 834
+            // Get current count from localStorage, or start at 0
             let pageViews = localStorage.getItem('dolaPageViews');
 
             if (!pageViews) {
-                // First time visitor - start at 834
-                pageViews = 834;
+                // First time visitor - start at 0
+                pageViews = 0;
             } else {
                 // Increment the count
                 pageViews = parseInt(pageViews) + 1;
