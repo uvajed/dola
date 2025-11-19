@@ -208,3 +208,106 @@ All UI elements support Albanian (Shqip) and English:
 - Responsive breakpoints: 768px, 480px
 - All event cards use CSS Grid layout (auto-fill, minmax(350px, 1fr))
 - Softer colors and animations (updated from harsh original design)
+
+## Automated Event Scraping System
+
+The application includes a GitHub Actions workflow that automatically scrapes and updates events daily.
+
+### Architecture
+
+**GitHub Actions Workflow** (`.github/workflows/update-events.yml`):
+- Runs daily at 6:00 AM UTC (configurable with cron syntax)
+- Can be manually triggered via "workflow_dispatch"
+- Requires Python 3.11 and dependencies (beautifulsoup4, requests, lxml)
+- Commits and pushes changes automatically using GitHub Actions Bot
+
+**Python Scraper** (`scripts/scrape-events.py`):
+- **Google Custom Search API**: Primary source for Kosovo events (requires `GOOGLE_API_KEY` and `GOOGLE_SEARCH_ENGINE_ID` GitHub Secrets)
+- **Eventbrite**: Scrapes multiple Kosovo cities (Pristina, Prizren, Peja, Gjakova, Gjilan, Ferizaj, Mitrovica)
+- **Intelligent Category Detection**: Uses keyword matching to auto-categorize events
+- **Date Extraction**: Parses various date formats (ISO, month names, date ranges)
+- **Image Pool System**: Assigns diverse category-appropriate images from Unsplash pools
+- **Duplicate Prevention**: Filters out duplicate events by title matching
+
+### Key Features
+
+1. **Only Specific Dates**: Only adds events with concrete dates (filters out "Coming Soon" events)
+2. **Smart Updates**: Appends new events to existing `MANUAL_EVENTS` array in `index.html`
+3. **API Rate Limiting**: Respects Google's free tier (100 searches/day limit)
+4. **Multi-City Coverage**: Searches all major Kosovo cities automatically
+5. **Category Intelligence**: Auto-detects event type from title/description keywords
+
+### Testing Locally
+
+```bash
+python3 scripts/scrape-events.py
+```
+
+### Required GitHub Secrets
+
+Add these to Settings → Secrets and variables → Actions:
+- `GOOGLE_API_KEY` - Get from https://developers.google.com/custom-search/v1/overview
+- `GOOGLE_SEARCH_ENGINE_ID` - Create at https://programmablesearchengine.google.com/
+
+### Customization
+
+**Change scraping schedule** in `.github/workflows/update-events.yml`:
+```yaml
+schedule:
+  - cron: '0 */6 * * *'  # Every 6 hours
+  - cron: '0 6,18 * * *'  # Twice daily (6 AM and 6 PM)
+```
+
+**Add event sources** in `scripts/scrape-events.py`:
+- Implement new scraping functions (e.g., `scrape_facebook_events()`)
+- Add to `scrape_events()` main function
+- Follow existing event structure (see Event Structure below)
+
+### Event Structure
+
+Each scraped event must include:
+```python
+{
+    'title': 'Albanian title',
+    'titleEn': 'English title',
+    'description': 'Albanian description',
+    'descriptionEn': 'English description',
+    'date': 'Nov 25' or 'Nov 25-30',
+    'time': '7:00 PM',
+    'location': 'Prishtina, Kosovo',
+    'image': 'https://images.unsplash.com/...',
+    'category': 'bars|museum|outdoor|restaurant|concert',
+    'url': 'https://event-source.com',
+    'source': 'Source Name',
+    'isLive': True  # False for permanent venues
+}
+```
+
+## Development Workflow
+
+### Adding Events Manually vs. Automated Scraping
+
+- **Manual events** in `MANUAL_EVENTS` array are preserved by the scraper
+- **Scraped events** are appended to the array automatically
+- Both types are rendered together by `renderDynamicEvents()` function
+- The scraper never removes manually-added events
+
+### Deployment
+
+1. **GitHub Pages** (recommended):
+   - Push to GitHub repository
+   - Enable in Settings → Pages → Source: main branch
+   - Site deploys to `https://username.github.io/dola/`
+
+2. **Auto-Updates**:
+   - GitHub Actions runs scraper daily
+   - New events are committed automatically
+   - GitHub Pages re-deploys with updated content
+
+### Troubleshooting Scraper
+
+- **No events found**: Check GitHub Actions logs in Actions tab
+- **Scraper failing**: Verify secrets are configured correctly
+- **Rate limiting**: Reduce number of search queries in `scrape-events.py`
+- **Invalid syntax**: Run `node -e "..."` command to validate JavaScript syntax
+- **Events not showing**: Clear browser cache and localStorage
