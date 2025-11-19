@@ -341,8 +341,9 @@ def scrape_google_events():
                         # Extract date from title and snippet
                         date_str, has_specific_date = extract_date_from_text(title + ' ' + snippet)
 
-                        # ONLY add events with specific dates (filter out "Coming Soon" generic events)
-                        if has_specific_date and not any(e['title'] == title for e in events):
+                        # Add all events (with and without specific dates)
+                        # Events without dates will appear at the end of the list
+                        if not any(e['title'] == title for e in events):
                             # Intelligently detect category and select diverse image
                             category = detect_category(title, snippet)
                             image = get_random_image(category)
@@ -352,7 +353,7 @@ def scrape_google_events():
                                 'titleEn': title[:100],
                                 'description': snippet[:200],
                                 'descriptionEn': snippet[:200],
-                                'date': date_str,
+                                'date': date_str,  # Will be "Coming Soon" if no date found
                                 'time': 'Check Website',
                                 'location': 'Kosovo',
                                 'image': image,
@@ -362,9 +363,10 @@ def scrape_google_events():
                                 'isLive': True
                             }
                             events.append(event)
-                            print(f"  ✅ Found: {title[:50]}... [{category}] on {date_str}")
-                        elif not has_specific_date:
-                            print(f"  ⏭️  Skipped (no date): {title[:50]}...")
+                            if has_specific_date:
+                                print(f"  ✅ Found: {title[:50]}... [{category}] on {date_str}")
+                            else:
+                                print(f"  ✅ Added (no date): {title[:50]}... [{category}]")
             else:
                 print(f"  ❌ Error: {response.status_code}")
 
