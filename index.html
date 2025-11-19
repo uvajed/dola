@@ -726,6 +726,9 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 Dola. Discover Prishtina - Bars, Restaurants, Museums & More.</p>
+            <p style="margin-top: 10px; opacity: 0.7; font-size: 14px;">
+                👁️ Page Views: <span id="page-view-counter" style="font-weight: 600;">834</span>
+            </p>
             <div style="margin-top: 15px;">
                 <button onclick="shareOnFacebook()" style="background: #1877f2; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600; margin-right: 10px;">
                     📘 Share on Facebook
@@ -3051,6 +3054,42 @@
             const shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
             window.open(shareUrl, '_blank', 'width=600,height=400');
         }
+
+        // ====================
+        // PAGE VIEW COUNTER
+        // ====================
+        function updatePageViewCounter() {
+            const counterElement = document.getElementById('page-view-counter');
+
+            // Get current count from localStorage, or start at 834
+            let pageViews = localStorage.getItem('dolaPageViews');
+
+            if (!pageViews) {
+                // First time visitor - start at 834
+                pageViews = 834;
+            } else {
+                // Increment the count
+                pageViews = parseInt(pageViews) + 1;
+            }
+
+            // Save to localStorage
+            localStorage.setItem('dolaPageViews', pageViews);
+
+            // Update the display with animation
+            if (counterElement) {
+                counterElement.style.transition = 'all 0.3s ease';
+                counterElement.textContent = pageViews.toLocaleString();
+
+                // Brief highlight effect
+                counterElement.style.color = '#667eea';
+                setTimeout(() => {
+                    counterElement.style.color = '';
+                }, 500);
+            }
+        }
+
+        // Run counter on page load
+        document.addEventListener('DOMContentLoaded', updatePageViewCounter);
 
         // Category filtering functionality
         const categoryButtons = document.querySelectorAll('.category-btn:not(#savedEventsBtn)');
