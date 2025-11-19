@@ -3060,12 +3060,18 @@
         // ====================
         function updatePageViewCounter() {
             const counterElement = document.getElementById('page-view-counter');
+            const COUNTER_VERSION = 'v2'; // Change this to reset all counters
 
-            // Get current count from localStorage, or start at 0
+            // Check if counter version matches
+            const storedVersion = localStorage.getItem('dolaCounterVersion');
             let pageViews = localStorage.getItem('dolaPageViews');
 
-            if (!pageViews) {
-                // First time visitor - start at 0
+            if (storedVersion !== COUNTER_VERSION) {
+                // Version mismatch or first time - reset to 0
+                pageViews = 0;
+                localStorage.setItem('dolaCounterVersion', COUNTER_VERSION);
+            } else if (!pageViews) {
+                // No count but version matches - start at 0
                 pageViews = 0;
             } else {
                 // Increment the count
