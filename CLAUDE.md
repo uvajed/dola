@@ -79,10 +79,15 @@ Events are automatically sorted without manual order numbers:
   - To move a venue to the top, move it to the top of the PERMANENT VENUES section in the code
 
 The `renderDynamicEvents()` function automatically:
-1. Separates live events and venues
-2. Sorts live events by date
-3. Keeps venues in array order
-4. Displays live events first, then venues
+1. Filters to only show events with actual dates
+2. **Removes past events** - Events with dates that have already passed are automatically hidden
+   - For date ranges (e.g., "Nov 22-27"), uses the END date
+   - For single dates (e.g., "Nov 19"), checks that specific date
+   - Permanent venues (e.g., "Open Daily", "Check Schedule") are never filtered out
+3. Sorts remaining events by date (soonest first)
+4. Displays events in chronological order
+
+**Note**: Past events are only hidden from display, not deleted from the code. This prevents the list from showing outdated events while preserving the event data.
 
 ### To Reorder Venues:
 
