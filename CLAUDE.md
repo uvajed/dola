@@ -10,6 +10,29 @@ Dola is a static HTML/CSS event aggregator application for Prishtina, Kosovo. It
 
 Simply open `index.html` in any web browser. No build process, dependencies, or server required.
 
+## ⚠️ CRITICAL RULES
+
+### Event Title Preservation
+
+**NEVER change event titles from their original name. EVER.**
+
+- ✅ **Titles**: Always keep in original language (Albanian, English, or whatever language the event organizer used)
+- ✅ **Descriptions**: CAN be translated between Albanian and English
+- ❌ **DO NOT** translate event titles
+- ❌ **DO NOT** modify event titles in any way
+- ❌ **DO NOT** add language switching attributes (`data-lang-sq`, `data-lang-en`) to title elements
+
+**Examples:**
+- Event title: "Sunny Hill Festival 2025" → Keep as "Sunny Hill Festival 2025" (never translate to "Festivali Sunny Hill 2025")
+- Event title: "Koncert i Dafina Zeqiri" → Keep as "Koncert i Dafina Zeqiri" (never translate to "Dafina Zeqiri Concert")
+- Description: "Koncert në Prishtinë" → CAN be translated to "Concert in Prishtina"
+
+This rule applies to:
+- Manual events in `MANUAL_EVENTS` array
+- Scraped events from `scripts/scrape-events.py`
+- User-submitted events
+- All event rendering functions in JavaScript
+
 ## Architecture
 
 ### Two-Type Content Model

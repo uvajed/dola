@@ -206,9 +206,11 @@ def scrape_eventbrite():
                         if title:
                             # Avoid duplicates
                             if not any(e['title'] == title for e in all_events):
+                                # IMPORTANT: Keep original title - NEVER translate event titles!
+                                # Only descriptions can be translated, titles stay in original language
                                 event = {
-                                    'title': title,
-                                    'titleEn': title,
+                                    'title': title,  # Original title (NEVER translate)
+                                    'titleEn': title,  # Keep same as original
                                     'description': f'Event in {city_name}, Kosovo. Check Eventbrite for full details.',
                                     'descriptionEn': f'Event in {city_name}, Kosovo. Check Eventbrite for full details.',
                                     'date': 'Coming Soon',
@@ -348,9 +350,11 @@ def scrape_google_events():
                             category = detect_category(title, snippet)
                             image = get_random_image(category)
 
+                            # IMPORTANT: Keep original title - NEVER translate event titles!
+                            # Only descriptions can be translated, titles stay in original language
                             event = {
-                                'title': title[:100],
-                                'titleEn': title[:100],
+                                'title': title[:100],  # Original title (NEVER translate)
+                                'titleEn': title[:100],  # Keep same as original
                                 'description': snippet[:200],
                                 'descriptionEn': snippet[:200],
                                 'date': date_str,  # Will be "Coming Soon" if no date found
@@ -432,9 +436,10 @@ def scrape_public_calendar_feeds():
                 for item in items:
                     title = item.find('title').get_text(strip=True) if item.find('title') else None
                     if title:
+                        # IMPORTANT: Keep original title - NEVER translate event titles!
                         event = {
-                            'title': title,
-                            'titleEn': title,
+                            'title': title,  # Original title (NEVER translate)
+                            'titleEn': title,  # Keep same as original
                             'description': 'Event from RSS feed',
                             'descriptionEn': 'Event from RSS feed',
                             'date': 'TBA',

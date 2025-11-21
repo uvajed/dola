@@ -4356,8 +4356,11 @@
             console.log(`📅 Sorted ${sortedEvents.length} events by date (nearest first)`);
 
             const dynamicHTML = sortedEvents.map(event => {
-                // Use language-specific title/description if available
-                const title = currentLang === 'sq' ? event.title : (event.titleEn || event.title);
+                // IMPORTANT: Keep original title - NEVER translate event titles!
+                // Titles always stay in their original language
+                const title = event.title;  // Always use original title, never translate
+
+                // Descriptions can be translated based on current language
                 const description = currentLang === 'sq' ? event.description : (event.descriptionEn || event.description);
 
                 // Generate unique ID and check if favorited
@@ -4386,7 +4389,7 @@
                             <span class="event-category ${event.category}">${getCategoryName(event.category)}</span>
                             <span class="event-time">${event.date}${event.time ? ', ' + event.time : ''}</span>
                         </div>
-                        <h2 class="event-title" data-lang-sq="${event.title}" data-lang-en="${event.titleEn || event.title}">${title}</h2>
+                        <h2 class="event-title">${title}</h2>
                         <p class="event-description" data-lang-sq="${event.description}" data-lang-en="${event.descriptionEn || event.description}">${description}</p>
                         <div class="event-footer">
                             <span class="event-location">📍 ${event.location}</span>
