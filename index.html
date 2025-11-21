@@ -4768,16 +4768,25 @@
         // ====================
 
         let lastScrollY = window.scrollY;
-        let scrollTimeout;
+        let ticking = false;
         const header = document.querySelector('.header');
         const categories = document.querySelector('.categories');
         const disclaimer = document.getElementById('disclaimer-notice');
+        const SCROLL_THRESHOLD = 100;
+        const MIN_SCROLL_DELTA = 5; // Minimum pixels to scroll before triggering
 
         function handleScroll() {
             const currentScrollY = window.scrollY;
+            const scrollDelta = Math.abs(currentScrollY - lastScrollY);
 
-            // Only hide if scrolled down more than 100px
-            if (currentScrollY > 100) {
+            // Only process if scroll delta is significant enough
+            if (scrollDelta < MIN_SCROLL_DELTA) {
+                ticking = false;
+                return;
+            }
+
+            // Only hide if scrolled down more than threshold
+            if (currentScrollY > SCROLL_THRESHOLD) {
                 if (currentScrollY > lastScrollY) {
                     // Scrolling down - hide controls
                     header.classList.add('hide-controls', 'compact');
@@ -4812,14 +4821,15 @@
             }
 
             lastScrollY = currentScrollY;
+            ticking = false;
         }
 
-        // Throttle scroll events for better performance
+        // Use requestAnimationFrame for smooth scroll handling
         window.addEventListener('scroll', () => {
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
+            if (!ticking) {
+                window.requestAnimationFrame(handleScroll);
+                ticking = true;
             }
-            scrollTimeout = setTimeout(handleScroll, 10);
         }, { passive: true });
     </script>
 </body>
