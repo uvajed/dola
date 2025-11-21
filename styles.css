@@ -28,11 +28,11 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: padding 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .header.compact {
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .header .container {
@@ -41,6 +41,11 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    transition: gap 0.3s ease;
+}
+
+.header.compact .container {
+    gap: 10px;
 }
 
 .logo h1 {
@@ -51,12 +56,28 @@ body {
     background-clip: text;
     font-weight: 800;
     margin-bottom: 5px;
+    transition: all 0.3s ease;
+}
+
+.header.compact .logo h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0;
 }
 
 .tagline {
     font-size: 0.9rem;
     color: #666;
     font-weight: 400;
+    max-height: 30px;
+    opacity: 1;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.header.compact .tagline {
+    max-height: 0;
+    opacity: 0;
+    margin: 0;
 }
 
 .nav {

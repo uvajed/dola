@@ -4769,6 +4769,7 @@
 
         let lastScrollY = window.scrollY;
         let ticking = false;
+        let isHeaderHovered = false;
         const header = document.querySelector('.header');
         const categories = document.querySelector('.categories');
         const disclaimer = document.getElementById('disclaimer-notice');
@@ -4788,8 +4789,12 @@
             // Only hide if scrolled down more than threshold
             if (currentScrollY > SCROLL_THRESHOLD) {
                 if (currentScrollY > lastScrollY) {
-                    // Scrolling down - hide controls
-                    header.classList.add('hide-controls', 'compact');
+                    // Scrolling down - hide controls (unless header is hovered)
+                    if (!isHeaderHovered) {
+                        header.classList.add('hide-controls', 'compact');
+                    } else {
+                        header.classList.add('compact');
+                    }
                     categories.classList.add('hide');
                     if (disclaimer) {
                         disclaimer.style.maxHeight = '0';
@@ -4831,6 +4836,21 @@
                 ticking = true;
             }
         }, { passive: true });
+
+        // Show search bar on header hover
+        header.addEventListener('mouseenter', () => {
+            isHeaderHovered = true;
+            if (window.scrollY > SCROLL_THRESHOLD) {
+                header.classList.remove('hide-controls');
+            }
+        });
+
+        header.addEventListener('mouseleave', () => {
+            isHeaderHovered = false;
+            if (window.scrollY > SCROLL_THRESHOLD) {
+                header.classList.add('hide-controls', 'compact');
+            }
+        });
     </script>
 </body>
 </html>
