@@ -28,7 +28,8 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    transition: all 0.3s ease;
+    transition: padding 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: padding;
 }
 
 .header.compact {
@@ -41,11 +42,14 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
-    transition: gap 0.3s ease;
 }
 
 .header.compact .container {
     gap: 10px;
+}
+
+.logo {
+    will-change: transform;
 }
 
 .logo h1 {
@@ -56,11 +60,13 @@ body {
     background-clip: text;
     font-weight: 800;
     margin-bottom: 5px;
-    transition: all 0.3s ease;
+    transform-origin: left center;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), margin 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
 }
 
 .header.compact .logo h1 {
-    font-size: 1.2rem;
+    transform: scale(0.48);
     margin-bottom: 0;
 }
 
@@ -71,7 +77,7 @@ body {
     max-height: 30px;
     opacity: 1;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .header.compact .tagline {
