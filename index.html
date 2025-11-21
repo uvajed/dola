@@ -43,7 +43,7 @@
     <main class="main-content">
         <div class="container">
             <!-- Disclaimer Notice -->
-            <div style="background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); border-left: 4px solid #f5576c;">
+            <div id="disclaimer-notice" style="background: rgba(255, 255, 255, 0.95); padding: 12px 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); border-left: 4px solid #f5576c; max-height: 100px; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease, margin 0.3s ease; opacity: 1;">
                 <p style="margin: 0; color: #636e72; font-size: 0.9rem;">
                     ⚠️ <strong data-i18n="disclaimerNotice">Eventet nuk janë të konfirmuara. Mund të ketë gabime ose evente të skaduara!</strong>
                 </p>
@@ -4762,6 +4762,65 @@
          *     updateEventCards(events);
          * }
          */
+
+        // ====================
+        // SCROLL HIDE CONTROLS
+        // ====================
+
+        let lastScrollY = window.scrollY;
+        let scrollTimeout;
+        const header = document.querySelector('.header');
+        const categories = document.querySelector('.categories');
+        const disclaimer = document.getElementById('disclaimer-notice');
+
+        function handleScroll() {
+            const currentScrollY = window.scrollY;
+
+            // Only hide if scrolled down more than 100px
+            if (currentScrollY > 100) {
+                if (currentScrollY > lastScrollY) {
+                    // Scrolling down - hide controls
+                    header.classList.add('hide-controls', 'compact');
+                    categories.classList.add('hide');
+                    if (disclaimer) {
+                        disclaimer.style.maxHeight = '0';
+                        disclaimer.style.opacity = '0';
+                        disclaimer.style.padding = '0 20px';
+                        disclaimer.style.marginBottom = '0';
+                    }
+                } else {
+                    // Scrolling up - show controls
+                    header.classList.remove('hide-controls', 'compact');
+                    categories.classList.remove('hide');
+                    if (disclaimer) {
+                        disclaimer.style.maxHeight = '100px';
+                        disclaimer.style.opacity = '1';
+                        disclaimer.style.padding = '12px 20px';
+                        disclaimer.style.marginBottom = '20px';
+                    }
+                }
+            } else {
+                // Near top - always show controls
+                header.classList.remove('hide-controls', 'compact');
+                categories.classList.remove('hide');
+                if (disclaimer) {
+                    disclaimer.style.maxHeight = '100px';
+                    disclaimer.style.opacity = '1';
+                    disclaimer.style.padding = '12px 20px';
+                    disclaimer.style.marginBottom = '20px';
+                }
+            }
+
+            lastScrollY = currentScrollY;
+        }
+
+        // Throttle scroll events for better performance
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(handleScroll, 10);
+        }, { passive: true });
     </script>
 </body>
 </html>
