@@ -13,6 +13,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
 from urllib.parse import quote
+from difflib import SequenceMatcher
 
 # User-Agent to avoid being blocked
 HEADERS = {
@@ -70,6 +71,157 @@ CATEGORY_KEYWORDS = {
 }
 
 # Facebook scraping removed per user request
+
+
+# =============================================================================
+# DUPLICATE DETECTION SYSTEM
+# =============================================================================
+
+def normalize_title(title):
+    """
+    Normalize a title for comparison:
+    - Lowercase
+    - Remove punctuation and special characters
+    - Remove extra whitespace
+    - Remove common filler words
+    """
+    if not title:
+        return ""
+
+    # Lowercase
+    normalized = title.lower()
+
+    # Remove punctuation and special characters (keep alphanumeric and spaces)
+    normalized = re.sub(r'[^\w\s]', '', normalized)
+
+    # Remove extra whitespace
+    normalized = ' '.join(normalized.split())
+
+    # Remove common filler words that don't add meaning for comparison
+    filler_words = ['the', 'a', 'an', 'in', 'at', 'on', 'for', 'of', 'and', 'or', 'to']
+    words = normalized.split()
+    words = [w for w in words if w not in filler_words]
+
+    return ' '.join(words)
+
+
+def calculate_similarity(title1, title2):
+    """
+    Calculate similarity ratio between two titles (0.0 to 1.0)
+    Uses SequenceMatcher for fuzzy matching
+    """
+    norm1 = normalize_title(title1)
+    norm2 = normalize_title(title2)
+
+    if not norm1 or not norm2:
+        return 0.0
+
+    # Exact match after normalization
+    if norm1 == norm2:
+        return 1.0
+
+    # Check if one is substring of the other
+    if norm1 in norm2 or norm2 in norm1:
+        return 0.9
+
+    # Fuzzy match using SequenceMatcher
+    return SequenceMatcher(None, norm1, norm2).ratio()
+
+
+def extract_existing_titles(html_content):
+    """
+    Extract all existing event titles from the MANUAL_EVENTS array in index.html
+    Returns a list of titles for duplicate checking
+    """
+    existing_titles = []
+
+    # Find the MANUAL_EVENTS array
+    pattern = r'const MANUAL_EVENTS = \[(.*?)\];'
+    match = re.search(pattern, html_content, re.DOTALL)
+
+    if not match:
+        return existing_titles
+
+    events_str = match.group(1)
+
+    # Extract all title values using regex
+    # Matches both: title: "..." and title: '...'
+    title_pattern = r'title:\s*["\']([^"\']+)["\']'
+    titles = re.findall(title_pattern, events_str)
+
+    existing_titles.extend(titles)
+
+    return existing_titles
+
+
+def is_duplicate(new_title, existing_titles, threshold=0.75):
+    """
+    Check if a new event title is a duplicate of any existing title
+
+    Args:
+        new_title: The title of the new event
+        existing_titles: List of existing event titles
+        threshold: Similarity threshold (0.75 = 75% similar is considered duplicate)
+
+    Returns:
+        tuple: (is_duplicate: bool, matched_title: str or None)
+    """
+    if not new_title or not existing_titles:
+        return False, None
+
+    new_normalized = normalize_title(new_title)
+
+    for existing_title in existing_titles:
+        similarity = calculate_similarity(new_title, existing_title)
+
+        if similarity >= threshold:
+            return True, existing_title
+
+    return False, None
+
+
+def filter_duplicates(new_events, existing_titles, threshold=0.75):
+    """
+    Filter out duplicate events from a list of new events
+
+    Args:
+        new_events: List of new event dictionaries
+        existing_titles: List of existing event titles
+        threshold: Similarity threshold for duplicate detection
+
+    Returns:
+        list: Filtered events (non-duplicates only)
+    """
+    filtered_events = []
+    duplicate_count = 0
+    seen_titles = set()  # Also track titles within this batch
+
+    for event in new_events:
+        title = event.get('title', '')
+
+        # Check against existing events in index.html
+        is_dup, matched = is_duplicate(title, existing_titles, threshold)
+
+        if is_dup:
+            print(f"  🔄 Skipping duplicate: '{title[:50]}...'")
+            print(f"      ↳ Similar to: '{matched[:50]}...'")
+            duplicate_count += 1
+            continue
+
+        # Check against events already added in this batch
+        normalized = normalize_title(title)
+        if normalized in seen_titles:
+            print(f"  🔄 Skipping batch duplicate: '{title[:50]}...'")
+            duplicate_count += 1
+            continue
+
+        seen_titles.add(normalized)
+        filtered_events.append(event)
+
+    if duplicate_count > 0:
+        print(f"  📋 Removed {duplicate_count} duplicate events")
+
+    return filtered_events
 
 
 def detect_category(title, description):
@@ -487,6 +639,7 @@ def scrape_events():
 def update_html_file(events):
     """
     Update index.html with new events
+    Includes duplicate detection to prevent adding similar events
     """
     if not events:
         print("ℹ️  No new events to add")
@@ -505,6 +658,20 @@ def update_html_file(events):
     if not match:
         print("❌ Could not find MANUAL_EVENTS array")
         return
+
+    # DUPLICATE DETECTION: Extract existing titles and filter duplicates
+    print("🔍 Checking for duplicates...")
+    existing_titles = extract_existing_titles(html_content)
+    print(f"   Found {len(existing_titles)} existing events to check against")
+
+    # Filter out duplicates before adding
+    events = filter_duplicates(events, existing_titles, threshold=0.75)
+
+    if not events:
+        print("ℹ️  All scraped events were duplicates - nothing new to add")
+        return
+
+    print(f"✅ {len(events)} unique new events to add")
 
     # Parse existing events
     existing_events_str = match.group(1)
@@ -559,15 +726,131 @@ def update_html_file(events):
     print(f"✅ Added {len(events)} new events to index.html")
 
 
+def parse_js_objects(events_str):
+    """
+    Parse JavaScript objects from a string by matching braces.
+    Returns list of (object_string, title) tuples.
+    """
+    objects = []
+    i = 0
+    n = len(events_str)
+
+    while i < n:
+        # Find the start of an object
+        if events_str[i] == '{':
+            start = i
+            brace_count = 1
+            i += 1
+
+            # Find matching closing brace
+            while i < n and brace_count > 0:
+                if events_str[i] == '{':
+                    brace_count += 1
+                elif events_str[i] == '}':
+                    brace_count -= 1
+                i += 1
+
+            if brace_count == 0:
+                obj_str = events_str[start:i]
+
+                # Extract title from this object
+                title_match = re.search(r'title:\s*["\']([^"\']+)["\']', obj_str)
+                if title_match:
+                    title = title_match.group(1)
+                    objects.append((obj_str, title, start, i))
+        else:
+            i += 1
+
+    return objects
+
+
+def cleanup_existing_duplicates():
+    """
+    Remove existing duplicate events from index.html
+    This cleans up duplicates that were added before the duplicate detection was in place
+    """
+    print("🧹 Cleaning up existing duplicates in index.html...")
+
+    # Read current HTML
+    with open('index.html', 'r', encoding='utf-8') as f:
+        html_content = f.read()
+
+    # Find the MANUAL_EVENTS array
+    pattern = r'const MANUAL_EVENTS = \[(.*?)\];'
+    match = re.search(pattern, html_content, re.DOTALL)
+
+    if not match:
+        print("❌ Could not find MANUAL_EVENTS array")
+        return
+
+    events_str = match.group(1)
+    array_start = match.start(1)
+
+    # Parse individual event objects by matching braces
+    event_objects = parse_js_objects(events_str)
+
+    if not event_objects:
+        print("❌ Could not parse events")
+        return
+
+    print(f"   Found {len(event_objects)} total events")
+
+    # Track seen titles and identify duplicates
+    seen_titles = {}  # normalized_title -> first occurrence index
+    unique_objects = []
+    duplicate_count = 0
+
+    for obj_str, title, start, end in event_objects:
+        normalized = normalize_title(title)
+
+        if normalized in seen_titles:
+            # This is a duplicate - skip it
+            print(f"   🔄 Duplicate found: '{title[:50]}...'")
+            duplicate_count += 1
+        else:
+            seen_titles[normalized] = len(unique_objects)
+            unique_objects.append(obj_str)
+
+    if duplicate_count == 0:
+        print("✅ No duplicates found!")
+        return
+
+    print(f"   Removing {duplicate_count} duplicate events...")
+
+    # Rebuild the events array with only unique events
+    new_events_str = ',\n            '.join(unique_objects)
+
+    # Update the HTML content
+    new_array = f'const MANUAL_EVENTS = [\n            {new_events_str}\n        ];'
+
+    updated_html = re.sub(
+        r'const MANUAL_EVENTS = \[.*?\];',
+        new_array,
+        html_content,
+        flags=re.DOTALL
+    )
+
+    # Write back
+    with open('index.html', 'w', encoding='utf-8') as f:
+        f.write(updated_html)
+
+    print(f"✅ Removed {duplicate_count} duplicate events")
+
+
 def main():
     """Main function"""
     print("🎉 Dola Event Scraper Started")
     print("=" * 50)
 
-    # Scrape events
+    # First, clean up any existing duplicates
+    cleanup_existing_duplicates()
+
+    print("=" * 50)
+
+    # Scrape new events
     events = scrape_events()
 
-    # Update HTML file
+    # Update HTML file (with duplicate detection)
     update_html_file(events)
 
     print("=" * 50)
